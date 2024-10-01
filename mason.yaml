@@ -1,0 +1,25 @@
+bricks:
+  entity:
+    git:
+      url: "https://github.com/Q-Agency/QBricks.git"
+      path: bricks/entity
+  model:
+    git:
+      url: "https://github.com/Q-Agency/QBricks.git"
+      path: bricks/model
+  repository:
+    git:
+      url: "https://github.com/Q-Agency/QBricks.git"
+      path: bricks/repository
+  notifier:
+    git:
+      url: "https://github.com/Q-Agency/QBricks.git"
+      path: bricks/notifier
+  simple_notifier:
+    git:
+      url: "https://github.com/Q-Agency/QBricks.git"
+      path: bricks/simple_notifier
+  service:
+    git:
+      url: "https://github.com/Q-Agency/QBricks.git"
+      path: bricks/service
