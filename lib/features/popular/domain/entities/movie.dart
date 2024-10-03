@@ -9,7 +9,7 @@ class Movie extends Equatable {
   final String backdropImagePath;
   final double voteAverage;
   final bool isFavourite;
-  final List<Genre> genres;
+  final List<GenreResponse> genres;
 
   const Movie({
     required this.id,
@@ -30,7 +30,7 @@ class Movie extends Equatable {
     String? backdropImagePath,
     double? voteAverage,
     bool? isFavourite,
-    List<Genre>? genres,
+    List<GenreResponse>? genres,
   }) =>
       Movie(
         id: id ?? this.id,

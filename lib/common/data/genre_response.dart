@@ -3,28 +3,30 @@ import 'package:json_annotation/json_annotation.dart';
 part 'genre_response.g.dart';
 
 @JsonSerializable()
-class GenreResponse {// GenreResponseWrapper
-  final List<Genre> genres;
+class GenreResponseWrapper {
+  // GenreResponseWrapper
+  final List<GenreResponse> genres;
 
-  GenreResponse({required this.genres});
+  GenreResponseWrapper({required this.genres});
+
+  factory GenreResponseWrapper.fromJson(Map<String, dynamic> json) =>
+      _$GenreResponseWrapperFromJson(json);
+
+  Map<String, dynamic> toJson() => _$GenreResponseWrapperToJson(this);
+}
+
+@JsonSerializable()
+class GenreResponse {
+  final int id;
+  final String name;
+
+  GenreResponse({
+    required this.id,
+    required this.name,
+  });
 
   factory GenreResponse.fromJson(Map<String, dynamic> json) =>
       _$GenreResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$GenreResponseToJson(this);
-}
-
-@JsonSerializable()
-class Genre {// GenreResponse
-  final int id;
-  final String name;
-
-  Genre({
-    required this.id,
-    required this.name,
-  });
-
-  factory Genre.fromJson(Map<String, dynamic> json) => _$GenreFromJson(json);
-
-  Map<String, dynamic> toJson() => _$GenreToJson(this);
 }

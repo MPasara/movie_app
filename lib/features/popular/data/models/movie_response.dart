@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'movie_response.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class Movie { //MovieResponse
+class MovieResponse {
   final bool adult;
 
   final String backdropPath;
@@ -30,7 +30,7 @@ class Movie { //MovieResponse
 
   final int voteCount;
 
-  Movie({
+  MovieResponse({
     required this.adult,
     required this.backdropPath,
     required this.genreIds,
@@ -47,26 +47,27 @@ class Movie { //MovieResponse
     required this.voteCount,
   });
 
-  factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
-  Map<String, dynamic> toJson() => _$MovieToJson(this);
+  factory MovieResponse.fromJson(Map<String, dynamic> json) =>
+      _$MovieResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$MovieResponseToJson(this);
 }
 
 @JsonSerializable()
-class MovieResponse { //MovieResponseWrapper
+class MovieResponseWrapper {
   final int page;
-  final List<Movie> results;
+  final List<MovieResponse> results;
   final int totalResults;
   final int totalPages;
 
-  MovieResponse({
+  MovieResponseWrapper({
     required this.page,
     required this.results,
     required this.totalResults,
     required this.totalPages,
   });
 
-  factory MovieResponse.fromJson(Map<String, dynamic> json) =>
-      _$MovieResponseFromJson(json);
+  factory MovieResponseWrapper.fromJson(Map<String, dynamic> json) =>
+      _$MovieResponseWrapperFromJson(json);
 
-  Map<String, dynamic> toJson() => _$MovieResponseToJson(this);
+  Map<String, dynamic> toJson() => _$MovieResponseWrapperToJson(this);
 }

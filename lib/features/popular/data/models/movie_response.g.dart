@@ -6,7 +6,8 @@ part of 'movie_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Movie _$MovieFromJson(Map<String, dynamic> json) => Movie(
+MovieResponse _$MovieResponseFromJson(Map<String, dynamic> json) =>
+    MovieResponse(
       adult: json['adult'] as bool,
       backdropPath: json['backdrop_path'] as String,
       genreIds: (json['genre_ids'] as List<dynamic>)
@@ -25,7 +26,8 @@ Movie _$MovieFromJson(Map<String, dynamic> json) => Movie(
       voteCount: (json['vote_count'] as num).toInt(),
     );
 
-Map<String, dynamic> _$MovieToJson(Movie instance) => <String, dynamic>{
+Map<String, dynamic> _$MovieResponseToJson(MovieResponse instance) =>
+    <String, dynamic>{
       'adult': instance.adult,
       'backdrop_path': instance.backdropPath,
       'genre_ids': instance.genreIds,
@@ -42,17 +44,19 @@ Map<String, dynamic> _$MovieToJson(Movie instance) => <String, dynamic>{
       'vote_count': instance.voteCount,
     };
 
-MovieResponse _$MovieResponseFromJson(Map<String, dynamic> json) =>
-    MovieResponse(
+MovieResponseWrapper _$MovieResponseWrapperFromJson(
+        Map<String, dynamic> json) =>
+    MovieResponseWrapper(
       page: (json['page'] as num).toInt(),
       results: (json['results'] as List<dynamic>)
-          .map((e) => Movie.fromJson(e as Map<String, dynamic>))
+          .map((e) => MovieResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
       totalResults: (json['totalResults'] as num).toInt(),
       totalPages: (json['totalPages'] as num).toInt(),
     );
 
-Map<String, dynamic> _$MovieResponseToJson(MovieResponse instance) =>
+Map<String, dynamic> _$MovieResponseWrapperToJson(
+        MovieResponseWrapper instance) =>
     <String, dynamic>{
       'page': instance.page,
       'results': instance.results,
