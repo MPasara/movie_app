@@ -14,6 +14,7 @@ class MovieAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      scrolledUnderElevation: 0,
       backgroundColor: context.appColors.background,
       leading: Padding(
         padding: const EdgeInsets.only(left: 20),

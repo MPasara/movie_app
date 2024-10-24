@@ -1,6 +1,8 @@
 // ignore_for_file: always_use_package_imports
 
 import 'package:dio/dio.dart';
+import 'package:movie_app/common/utils/api_path_constants.dart';
+import 'package:movie_app/features/popular/data/models/movie_response.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../example/data/models/example_user_response.dart';
@@ -13,4 +15,11 @@ abstract class ApiClient {
 
   @POST('/token')
   Future<ExampleUserResponse> getUser();
+
+  @GET(ApiPathConstants.moviePopular)
+  Future<MovieResponseWrapper> getMovies(
+    @Header('Authorization') String bearerToken,
+    @Query('language') String language,
+    @Query('page') int page,
+  );
 }

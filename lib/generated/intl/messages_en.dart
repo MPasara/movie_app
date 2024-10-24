@@ -20,9 +20,12 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(rating) => "${rating} / 10 IMDb";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "favourites": MessageLookupByLibrary.simpleMessage("Favourites"),
+        "movie_rating": m0,
         "movies": MessageLookupByLibrary.simpleMessage("Movies"),
         "permission_denied": MessageLookupByLibrary.simpleMessage(
             "Permission has been denied, please enable it in device settings"),

@@ -4,7 +4,6 @@ part 'genre_response.g.dart';
 
 @JsonSerializable()
 class GenreResponseWrapper {
-  // GenreResponseWrapper
   final List<GenreResponse> genres;
 
   GenreResponseWrapper({required this.genres});

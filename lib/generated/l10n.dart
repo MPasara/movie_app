@@ -99,6 +99,16 @@ class S {
       args: [],
     );
   }
+
+  /// `{rating} / 10 IMDb`
+  String movie_rating(Object rating) {
+    return Intl.message(
+      '$rating / 10 IMDb',
+      name: 'movie_rating',
+      desc: '',
+      args: [rating],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

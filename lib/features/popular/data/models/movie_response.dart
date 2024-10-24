@@ -52,7 +52,7 @@ class MovieResponse {
   Map<String, dynamic> toJson() => _$MovieResponseToJson(this);
 }
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class MovieResponseWrapper {
   final int page;
   final List<MovieResponse> results;

@@ -51,8 +51,8 @@ MovieResponseWrapper _$MovieResponseWrapperFromJson(
       results: (json['results'] as List<dynamic>)
           .map((e) => MovieResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
-      totalResults: (json['totalResults'] as num).toInt(),
-      totalPages: (json['totalPages'] as num).toInt(),
+      totalResults: (json['total_results'] as num).toInt(),
+      totalPages: (json['total_pages'] as num).toInt(),
     );
 
 Map<String, dynamic> _$MovieResponseWrapperToJson(
@@ -60,6 +60,6 @@ Map<String, dynamic> _$MovieResponseWrapperToJson(
     <String, dynamic>{
       'page': instance.page,
       'results': instance.results,
-      'totalResults': instance.totalResults,
-      'totalPages': instance.totalPages,
+      'total_results': instance.totalResults,
+      'total_pages': instance.totalPages,
     };
