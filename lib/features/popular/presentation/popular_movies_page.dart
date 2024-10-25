@@ -36,7 +36,7 @@ class PopularMoviesPage extends ConsumerWidget {
         BaseData(data: final movies) => Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 28, bottom: 20, left: 20),
+                padding: const EdgeInsets.only(top: 28, bottom: 4, left: 20),
                 child: Row(
                   children: [
                     Text(

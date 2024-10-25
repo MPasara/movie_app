@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:movie_app/common/domain/router/navigation_extensions.dart';
+import 'package:movie_app/common/presentation/build_context_extensions.dart';
 import 'package:movie_app/common/presentation/image_assets.dart';
 import 'package:movie_app/common/utils/constants.dart';
 import 'package:movie_app/features/popular/data/models/movie_response.dart';
+import 'package:movie_app/features/popular/presentation/movie_details_page.dart';
 import 'package:movie_app/generated/l10n.dart';
 
-class PopularMoviesListWidget extends StatelessWidget {
+class PopularMoviesListWidget extends ConsumerWidget {
   const PopularMoviesListWidget({
     super.key,
     required this.movies,
@@ -14,9 +18,10 @@ class PopularMoviesListWidget extends StatelessWidget {
   final MovieResponseWrapper movies;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Expanded(
       child: ListView.builder(
+        padding: const EdgeInsets.only(top: 16),
         itemCount: movies.results.length,
         itemBuilder: (context, index) {
           return Padding(
@@ -24,7 +29,14 @@ class PopularMoviesListWidget extends StatelessWidget {
               bottom: 20,
             ),
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                ref.pushNamed(
+                  data: movies.results[index],
+                  ref.getRouteNameFromCurrentLocation(
+                    MovieDetailsPage.routeName,
+                  ),
+                );
+              },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
@@ -52,8 +64,8 @@ class PopularMoviesListWidget extends StatelessWidget {
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 2,
                                   softWrap: true,
-                                  style: const TextStyle(
-                                    color: Colors.white,
+                                  style: TextStyle(
+                                    color: context.appColors.defaultColor,
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -63,9 +75,9 @@ class PopularMoviesListWidget extends StatelessWidget {
                                 flex: 1,
                                 child: IconButton(
                                   onPressed: () {},
-                                  icon: const Icon(
+                                  icon: Icon(
                                     Icons.bookmark_outline,
-                                    color: Colors.white,
+                                    color: context.appColors.defaultColor,
                                   ),
                                 ),
                               ),
@@ -73,7 +85,6 @@ class PopularMoviesListWidget extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                              top: 4,
                               bottom: 12,
                             ),
                             child: Row(
@@ -87,8 +98,8 @@ class PopularMoviesListWidget extends StatelessWidget {
                                         movies.results[index].voteAverage
                                             .toStringAsFixed(1),
                                       ),
-                                  style: const TextStyle(
-                                    color: Colors.white,
+                                  style: TextStyle(
+                                    color: context.appColors.defaultColor,
                                   ),
                                 ),
                               ],
@@ -99,31 +110,67 @@ class PopularMoviesListWidget extends StatelessWidget {
                             runSpacing: 4,
                             children: [
                               Container(
-                                color: Colors.brown,
-                                child: const Text(
-                                  'Comedy',
-                                  style: TextStyle(color: Colors.white),
+                                decoration: BoxDecoration(
+                                  color: context.appColors.genreTagBackground,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 4,
+                                  ),
+                                  child: Text(
+                                    'Comedy',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                                 ),
                               ),
                               Container(
-                                color: Colors.brown,
-                                child: const Text(
-                                  'Tragedy',
-                                  style: TextStyle(color: Colors.white),
+                                decoration: BoxDecoration(
+                                  color: context.appColors.genreTagBackground,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 4,
+                                  ),
+                                  child: Text(
+                                    'Tragedy',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                                 ),
                               ),
                               Container(
-                                color: Colors.brown,
-                                child: const Text(
-                                  'Ex-Yu',
-                                  style: TextStyle(color: Colors.white),
+                                decoration: BoxDecoration(
+                                  color: context.appColors.genreTagBackground,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 4,
+                                  ),
+                                  child: Text(
+                                    'Ex-Yu',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                                 ),
                               ),
                               Container(
-                                color: Colors.brown,
-                                child: const Text(
-                                  'Comedy',
-                                  style: TextStyle(color: Colors.white),
+                                decoration: BoxDecoration(
+                                  color: context.appColors.genreTagBackground,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 4,
+                                  ),
+                                  child: Text(
+                                    'Drama',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                                 ),
                               ),
                             ],
