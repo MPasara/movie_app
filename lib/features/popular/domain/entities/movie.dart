@@ -1,15 +1,14 @@
 import 'package:equatable/equatable.dart';
-import 'package:movie_app/common/data/genre_response.dart';
 
 class Movie extends Equatable {
-  final String id;
+  final int id;
   final String title;
   final String description;
   final String posterImagePath;
   final String backdropImagePath;
   final double voteAverage;
   final bool isFavourite;
-  final List<GenreResponse> genres;
+  final List<String> genres;
 
   const Movie({
     required this.id,
@@ -23,14 +22,14 @@ class Movie extends Equatable {
   });
 
   Movie copyWith({
-    String? id,
+    int? id,
     String? title,
     String? description,
     String? posterImagePath,
     String? backdropImagePath,
     double? voteAverage,
     bool? isFavourite,
-    List<GenreResponse>? genres,
+    List<String>? genres,
   }) =>
       Movie(
         id: id ?? this.id,

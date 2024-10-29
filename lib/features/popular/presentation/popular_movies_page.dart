@@ -9,13 +9,44 @@ import 'package:movie_app/features/popular/presentation/widgets/popular_movies_l
 import 'package:movie_app/generated/l10n.dart';
 import 'package:q_architecture/base_notifier.dart';
 
-class PopularMoviesPage extends ConsumerWidget {
+class PopularMoviesPage extends ConsumerStatefulWidget {
   static const routeName = '/popular-movies';
 
-  PopularMoviesPage({super.key});
-  final GlobalKey<ScaffoldState> _globalKey = GlobalKey();
+  const PopularMoviesPage({super.key});
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<PopularMoviesPage> createState() => _PopularMoviesPageState();
+}
+
+class _PopularMoviesPageState extends ConsumerState<PopularMoviesPage> {
+  final GlobalKey<ScaffoldState> _globalKey = GlobalKey();
+  final _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    _scrollController.addListener(_loadMore);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _loadMore() {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
+      setState(() {
+        /*  _currentPage++;
+        _list.addAll(List.generate(
+            20, (index) => 'Item ${index + 1 + _currentPage * 20}')); */
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final state = ref.watch(popularMoviesNotifierProvider);
 
     return Scaffold(
@@ -46,7 +77,10 @@ class PopularMoviesPage extends ConsumerWidget {
                   ],
                 ),
               ),
-              PopularMoviesListWidget(movies: movies),
+              PopularMoviesListWidget(
+                movies: movies,
+                scrollController: _scrollController,
+              ),
             ],
           ),
       },

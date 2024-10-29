@@ -4,14 +4,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:movie_app/common/domain/router/navigation_extensions.dart';
 import 'package:movie_app/common/presentation/build_context_extensions.dart';
 import 'package:movie_app/common/presentation/image_assets.dart';
+import 'package:movie_app/common/presentation/widgets/genre_chip.dart';
 import 'package:movie_app/common/utils/constants.dart';
-import 'package:movie_app/features/popular/data/models/movie_response.dart';
+import 'package:movie_app/features/popular/domain/entities/movie.dart';
 import 'package:movie_app/generated/l10n.dart';
 
 class MovieDetailsPage extends ConsumerWidget {
   static const routeName = '/movie-details';
 
-  final MovieResponse movie;
+  final Movie movie;
   const MovieDetailsPage({super.key, required this.movie});
 
   @override
@@ -23,7 +24,7 @@ class MovieDetailsPage extends ConsumerWidget {
             width: double.infinity,
             height: 334,
             child: Image.network(
-              kImagesBaseUrl + movie.backdropPath,
+              kImagesBaseUrl + movie.backdropImagePath,
               fit: BoxFit.cover,
             ),
           ),
@@ -47,150 +48,96 @@ class MovieDetailsPage extends ConsumerWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 22),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                        flex: 5,
-                        child: Text(
-                          movie.title,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 3,
-                          softWrap: true,
-                          style: TextStyle(
-                            color: context.appColors.defaultColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.bookmark_outline,
-                            color: context.appColors.defaultColor,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      top: 4,
-                      bottom: 12,
-                    ),
-                    child: Row(
+              child: SingleChildScrollView(
+                physics: const ClampingScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 22),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SvgPicture.asset(
-                          ImageAssets.star,
+                        Flexible(
+                          flex: 5,
+                          child: Text(
+                            movie.title,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 3,
+                            softWrap: true,
+                            style: TextStyle(
+                              color: context.appColors.defaultColor,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20,
+                            ),
+                          ),
                         ),
-                        const SizedBox(width: 4),
-                        Text(
-                          S.of(context).movie_rating(
-                                movie.voteAverage.toStringAsFixed(1),
-                              ),
-                          style: TextStyle(
-                            color: context.appColors.defaultColor,
+                        Flexible(
+                          flex: 1,
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.bookmark_outline,
+                              color: context.appColors.defaultColor,
+                            ),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                  Wrap(
-                    spacing: 5,
-                    runSpacing: 4,
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: context.appColors.genreTagBackground,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 4,
-                          ),
-                          child: Text(
-                            'Comedy',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 4,
+                        bottom: 12,
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: context.appColors.genreTagBackground,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 4,
+                      child: Row(
+                        children: [
+                          SvgPicture.asset(
+                            ImageAssets.star,
                           ),
-                          child: Text(
-                            'Tragedy',
-                            style: TextStyle(color: Colors.white),
+                          const SizedBox(width: 4),
+                          Text(
+                            S.of(context).movie_rating(
+                                  movie.voteAverage.toStringAsFixed(1),
+                                ),
+                            style: TextStyle(
+                              color: context.appColors.defaultColor,
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: context.appColors.genreTagBackground,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 4,
-                          ),
-                          child: Text(
-                            'Ex-Yu',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: context.appColors.genreTagBackground,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 4,
-                          ),
-                          child: Text(
-                            'Drama',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 40),
-                  Text(
-                    S.of(context).description,
-                    style: TextStyle(
-                      color: context.appColors.defaultColor,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 15,
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    movie.overview,
-                    style: TextStyle(
-                      color: context.appColors.defaultColor,
-                      fontWeight: FontWeight.w300,
-                      fontSize: 13,
+                    Wrap(
+                      spacing: 5,
+                      runSpacing: 4,
+                      children: [
+                        for (final genre in movie.genres)
+                          GenreChip(name: genre),
+                      ],
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 40),
+                    Text(
+                      S.of(context).description,
+                      style: TextStyle(
+                        color: context.appColors.defaultColor,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15,
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        const SizedBox(height: 8),
+                        Text(
+                          movie.description,
+                          style: TextStyle(
+                            color: context.appColors.defaultColor,
+                            fontWeight: FontWeight.w300,
+                            fontSize: 13,
+                          ),
+                        ),
+                        const SizedBox(height: 14),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
