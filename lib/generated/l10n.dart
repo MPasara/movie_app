@@ -119,6 +119,26 @@ class S {
       args: [],
     );
   }
+
+  /// `Fetch genres failed`
+  String get fethc_genres_failed {
+    return Intl.message(
+      'Fetch genres failed',
+      name: 'fethc_genres_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fetch movies failed`
+  String get fethc_movies_failed {
+    return Intl.message(
+      'Fetch movies failed',
+      name: 'fethc_movies_failed',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
