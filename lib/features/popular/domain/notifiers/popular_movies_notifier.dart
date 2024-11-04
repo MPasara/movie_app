@@ -6,20 +6,22 @@ import 'package:q_architecture/base_notifier.dart';
 import 'package:q_architecture/q_architecture.dart';
 
 final popularMoviesNotifierProvider =
-    StateNotifierProvider<PopularMoviesNotifier, BaseState<List<Movie>>>(
-  (ref) => PopularMoviesNotifier(
-    ref.watch(movieRepositoryProvider),
-  )..getPopularMovies(),
+    NotifierProvider<PopularMoviesNotifier, BaseState<List<Movie>>>(
+  () => PopularMoviesNotifier(),
 );
 
-class PopularMoviesNotifier extends StateNotifier<BaseState<List<Movie>>> {
-  final MovieRepository _movieRepository;
-  PopularMoviesNotifier(this._movieRepository)
-      : super(const BaseState.initial());
+class PopularMoviesNotifier extends Notifier<BaseState<List<Movie>>> {
+  late MovieRepository _movieRepository;
+
+  @override
+  BaseState<List<Movie>> build() {
+    _movieRepository = ref.watch(movieRepositoryProvider);
+    getPopularMovies();
+    return const BaseState.initial();
+  }
 
   Future<void> getPopularMovies() async {
     state = const BaseState.loading();
-
     try {
       final eitherFailuerOrMovies = await _movieRepository.getMovies();
 
