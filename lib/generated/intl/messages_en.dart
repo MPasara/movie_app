@@ -36,6 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Permission has been denied, please enable it in device settings"),
         "popular": MessageLookupByLibrary.simpleMessage("Popular"),
         "unknown_error_occurred":
-            MessageLookupByLibrary.simpleMessage("Unknown error occurred")
+            MessageLookupByLibrary.simpleMessage("Unknown error occurred"),
+        "unknown_genre": MessageLookupByLibrary.simpleMessage("Unknown")
       };
 }

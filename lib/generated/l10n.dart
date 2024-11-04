@@ -139,6 +139,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Unknown`
+  String get unknown_genre {
+    return Intl.message(
+      'Unknown',
+      name: 'unknown_genre',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

@@ -41,8 +41,9 @@ class MovieRepositoryImpl implements MovieRepository {
 
   @override
   EitherFailureOr<List<Movie>> getMovies() async {
-    final allGenres = ref.read(allGenresProvider);
     final movies = <Movie>[];
+    final genreMap = ref.read(allGenresProvider.notifier);
+
     try {
       final response = await _apiClient.getMovies(
         kBearerToken,
@@ -58,15 +59,18 @@ class MovieRepositoryImpl implements MovieRepository {
             return Failure(title: failure.title, error: failure.error);
           },
           (genres) {
-            for (final genre in genres.genres) {
-              allGenres.add(genre);
-            }
+            genreMap.state = {
+              for (final genre in genres.genres) genre.id: genre.name,
+            };
           },
         );
       } catch (e, st) {
         return Left(
           Failure(
-              title: S.current.fethc_genres_failed, error: e, stackTrace: st),
+            title: S.current.fethc_genres_failed,
+            error: e,
+            stackTrace: st,
+          ),
         );
       }
 

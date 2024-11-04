@@ -25,9 +25,9 @@ class PopularMoviesListWidget extends ConsumerWidget {
     return Expanded(
       child: RawScrollbar(
         padding: const EdgeInsets.only(right: 4),
-        thumbColor: context.appColors.secondary!.withOpacity(0.75),
+        thumbColor: context.appColors.defaultColor!.withOpacity(0.8),
         controller: scrollController,
-        thickness: 5,
+        thickness: 3,
         child: ListView.builder(
           controller: scrollController,
           padding: const EdgeInsets.only(top: 16),
