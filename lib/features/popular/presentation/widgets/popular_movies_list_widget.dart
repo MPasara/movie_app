@@ -7,10 +7,12 @@ import 'package:movie_app/common/presentation/image_assets.dart';
 import 'package:movie_app/common/presentation/widgets/genre_chip.dart';
 import 'package:movie_app/common/utils/constants.dart';
 import 'package:movie_app/features/popular/domain/entities/movie.dart';
+import 'package:movie_app/features/popular/domain/notifiers/popular_movies_notifier.dart';
 import 'package:movie_app/features/popular/presentation/movie_details_page.dart';
 import 'package:movie_app/generated/l10n.dart';
+import 'package:q_architecture/base_notifier.dart';
 
-class PopularMoviesListWidget extends ConsumerWidget {
+class PopularMoviesListWidget extends ConsumerStatefulWidget {
   const PopularMoviesListWidget({
     super.key,
     required this.movies,
@@ -21,25 +23,47 @@ class PopularMoviesListWidget extends ConsumerWidget {
   final ScrollController scrollController;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<PopularMoviesListWidget> createState() =>
+      _PopularMoviesListWidgetState();
+}
+
+class _PopularMoviesListWidgetState
+    extends ConsumerState<PopularMoviesListWidget>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+
+    final state = ref.watch(popularMoviesNotifierProvider);
+    final isLoading = state is BaseLoading; // check if loading
+
+    final itemCount =
+        isLoading ? widget.movies.length + 1 : widget.movies.length;
+
     return Expanded(
       child: RawScrollbar(
         padding: const EdgeInsets.only(right: 4),
         thumbColor: context.appColors.defaultColor!.withOpacity(0.8),
-        controller: scrollController,
+        controller: widget.scrollController,
         thickness: 3,
         child: ListView.builder(
-          controller: scrollController,
+          controller: widget.scrollController,
           padding: const EdgeInsets.only(top: 16),
-          itemCount: movies.length,
+          itemCount: itemCount,
           itemBuilder: (context, index) {
+            if (isLoading && index == widget.movies.length) {
+              return const Padding(
+                padding: EdgeInsets.symmetric(vertical: 16),
+                child: Center(child: CircularProgressIndicator()),
+              );
+            }
+
+            final movie = widget.movies[index];
             return Padding(
-              padding: const EdgeInsets.only(
-                bottom: 20,
-              ),
+              padding: const EdgeInsets.only(bottom: 20),
               child: InkWell(
                 onTap: () => ref.pushNamed(
-                  data: movies[index],
+                  data: movie,
                   ref.getRouteNameFromCurrentLocation(
                     MovieDetailsPage.routeName,
                   ),
@@ -52,7 +76,7 @@ class PopularMoviesListWidget extends ConsumerWidget {
                         width: 100,
                         height: 130,
                         child: Image.network(
-                          kImagesBaseUrl + movies[index].posterImagePath,
+                          kImagesBaseUrl + movie.posterImagePath,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -67,7 +91,7 @@ class PopularMoviesListWidget extends ConsumerWidget {
                                 Flexible(
                                   flex: 5,
                                   child: Text(
-                                    movies[index].title,
+                                    movie.title,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                     softWrap: true,
@@ -91,9 +115,7 @@ class PopularMoviesListWidget extends ConsumerWidget {
                               ],
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(
-                                bottom: 12,
-                              ),
+                              padding: const EdgeInsets.only(bottom: 12),
                               child: Row(
                                 children: [
                                   SvgPicture.asset(
@@ -102,9 +124,7 @@ class PopularMoviesListWidget extends ConsumerWidget {
                                   const SizedBox(width: 4),
                                   Text(
                                     S.of(context).movie_rating(
-                                          movies[index]
-                                              .voteAverage
-                                              .toStringAsFixed(1),
+                                          movie.voteAverage.toStringAsFixed(1),
                                         ),
                                     style: TextStyle(
                                       color: context.appColors.defaultColor,
@@ -117,7 +137,7 @@ class PopularMoviesListWidget extends ConsumerWidget {
                               spacing: 5,
                               runSpacing: 4,
                               children: [
-                                for (final genre in movies[index].genres)
+                                for (final genre in movie.genres)
                                   GenreChip(name: genre),
                               ],
                             ),
@@ -134,4 +154,153 @@ class PopularMoviesListWidget extends ConsumerWidget {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
+
+
+/* class PopularMoviesListWidget extends ConsumerStatefulWidget {
+  final List<Movie> movies;
+  final ScrollController scrollController;
+  bool? isLoading;
+
+  PopularMoviesListWidget({
+    super.key,
+    required this.movies,
+    required this.scrollController,
+    this.isLoading = false,
+  });
+
+  @override
+  ConsumerState<PopularMoviesListWidget> createState() =>
+      _PopularMoviesListWidgetState();
+}
+
+class _PopularMoviesListWidgetState
+    extends ConsumerState<PopularMoviesListWidget>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  Widget build(BuildContext context) {
+    final itemCount = widget.isLoading ?? false
+        ? widget.movies.length + 1
+        : widget.movies.length;
+    return Expanded(
+      child: RawScrollbar(
+        padding: const EdgeInsets.only(right: 4),
+        thumbColor: context.appColors.defaultColor!.withOpacity(0.8),
+        controller: widget.scrollController,
+        thickness: 3,
+        child: ListView.builder(
+          controller: widget.scrollController,
+          padding: const EdgeInsets.only(top: 16),
+          itemCount: itemCount,
+          itemBuilder: (context, index) {
+            if (index >= widget.movies.length) {
+              return const Padding(
+                padding: EdgeInsets.symmetric(vertical: 16),
+                child: Center(child: CircularProgressIndicator()),
+              );
+            }
+
+            // Normal movie item
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: InkWell(
+                onTap: () => ref.pushNamed(
+                  data: widget.movies[index],
+                  ref.getRouteNameFromCurrentLocation(
+                    MovieDetailsPage.routeName,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 100,
+                        height: 130,
+                        child: Image.network(
+                          kImagesBaseUrl + widget.movies[index].posterImagePath,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Flexible(
+                                  flex: 5,
+                                  child: Text(
+                                    widget.movies[index].title,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                    softWrap: true,
+                                    style: TextStyle(
+                                      color: context.appColors.defaultColor,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                                Flexible(
+                                  flex: 1,
+                                  child: IconButton(
+                                    onPressed: () {},
+                                    icon: Icon(
+                                      Icons.bookmark_outline,
+                                      color: context.appColors.defaultColor,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 12),
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    ImageAssets.star,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    S.of(context).movie_rating(
+                                          widget.movies[index].voteAverage
+                                              .toStringAsFixed(1),
+                                        ),
+                                    style: TextStyle(
+                                      color: context.appColors.defaultColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Wrap(
+                              spacing: 5,
+                              runSpacing: 4,
+                              children: [
+                                for (final genre in widget.movies[index].genres)
+                                  GenreChip(name: genre),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+} */

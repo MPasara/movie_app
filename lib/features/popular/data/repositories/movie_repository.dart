@@ -20,10 +20,11 @@ final movieRepositoryProvider = Provider<MovieRepository>(
       movieEntityMapperProvider,
     ),
   ),
+  name: 'Movie repository provider',
 );
 
 abstract interface class MovieRepository {
-  EitherFailureOr<List<Movie>> getMovies();
+  EitherFailureOr<List<Movie>> getMovies(int page);
 }
 
 class MovieRepositoryImpl implements MovieRepository {
@@ -40,7 +41,7 @@ class MovieRepositoryImpl implements MovieRepository {
   );
 
   @override
-  EitherFailureOr<List<Movie>> getMovies() async {
+  EitherFailureOr<List<Movie>> getMovies(int page) async {
     final movies = <Movie>[];
     final genreMap = ref.read(allGenresProvider.notifier);
 
@@ -48,26 +49,26 @@ class MovieRepositoryImpl implements MovieRepository {
       final response = await _apiClient.getMovies(
         kBearerToken,
         kApiLanguage,
-        1,
+        page,
       );
       final movieResponseList = response.results;
       final eitherFailureOrGenres = await _genreRepository.getAllGenres();
 
       try {
         eitherFailureOrGenres.fold(
-          (failure) {
-            return Failure(title: failure.title, error: failure.error);
-          },
-          (genres) {
-            genreMap.state = {
-              for (final genre in genres.genres) genre.id: genre.name,
-            };
+          (failure) => Failure(title: failure.title, error: failure.error),
+          (response) {
+            if (genreMap.state.isEmpty) {
+              genreMap.state = {
+                for (final genre in response.genres) genre.id: genre.name,
+              };
+            }
           },
         );
       } catch (e, st) {
         return Left(
           Failure(
-            title: S.current.fethc_genres_failed,
+            title: S.current.fetch_genres_failed,
             error: e,
             stackTrace: st,
           ),
@@ -82,7 +83,7 @@ class MovieRepositoryImpl implements MovieRepository {
       return Right(movies);
     } catch (e, st) {
       return Left(
-        Failure(title: S.current.fethc_movies_failed, error: e, stackTrace: st),
+        Failure(title: S.current.fetch_movies_failed, error: e, stackTrace: st),
       );
     }
   }

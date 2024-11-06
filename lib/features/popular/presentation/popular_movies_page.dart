@@ -5,6 +5,7 @@ import 'package:movie_app/common/presentation/build_context_extensions.dart';
 import 'package:movie_app/common/presentation/widgets/app_drawer.dart';
 import 'package:movie_app/common/presentation/widgets/movie_app_bar.dart';
 import 'package:movie_app/features/popular/domain/notifiers/popular_movies_notifier.dart';
+import 'package:movie_app/features/popular/domain/providers/current_page_provider.dart';
 import 'package:movie_app/features/popular/presentation/widgets/popular_movies_list_widget.dart';
 import 'package:movie_app/generated/l10n.dart';
 import 'package:q_architecture/base_notifier.dart';
@@ -20,28 +21,31 @@ class PopularMoviesPage extends ConsumerStatefulWidget {
 
 class _PopularMoviesPageState extends ConsumerState<PopularMoviesPage> {
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey();
-  final _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
-    _scrollController.addListener(_loadMore);
     super.initState();
+    _scrollController.addListener(_loadMore);
   }
 
   @override
   void dispose() {
+    _scrollController.removeListener(_loadMore);
     _scrollController.dispose();
     super.dispose();
   }
 
   void _loadMore() {
-    if (_scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent) {
-      setState(() {
-        /*  _currentPage++;
-        _list.addAll(List.generate(
-            20, (index) => 'Item ${index + 1 + _currentPage * 20}')); */
-      });
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent * 0.9) {
+      final currentPage = ++ref.read(currentPageProvider.notifier).state;
+
+      ref
+          .read(popularMoviesNotifierProvider.notifier)
+          .getPopularMovies(currentPage);
+      ref.read(currentPageProvider.notifier).state =
+          currentPage; // Update current page
     }
   }
 
@@ -55,9 +59,7 @@ class _PopularMoviesPageState extends ConsumerState<PopularMoviesPage> {
       appBar: MovieAppBar(globalKey: _globalKey),
       body: switch (state) {
         BaseInitial() => const SizedBox(),
-        BaseLoading() => const Center(
-            child: CircularProgressIndicator(),
-          ),
+        BaseLoading() => const Center(child: CircularProgressIndicator()),
         BaseError(failure: final failure) => Center(
             child: Text(
               failure.toString(),
