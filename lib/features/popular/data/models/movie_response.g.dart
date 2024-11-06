@@ -9,7 +9,7 @@ part of 'movie_response.dart';
 MovieResponse _$MovieResponseFromJson(Map<String, dynamic> json) =>
     MovieResponse(
       adult: json['adult'] as bool,
-      backdropPath: json['backdrop_path'] as String,
+      backdropPath: json['backdrop_path'] as String?,
       genreIds: (json['genre_ids'] as List<dynamic>)
           .map((e) => (e as num).toInt())
           .toList(),

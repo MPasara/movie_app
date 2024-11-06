@@ -6,7 +6,7 @@ part 'movie_response.g.dart';
 class MovieResponse {
   final bool adult;
 
-  final String backdropPath;
+  final String? backdropPath;
 
   final List<int> genreIds;
 

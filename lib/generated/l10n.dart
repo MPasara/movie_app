@@ -121,20 +121,20 @@ class S {
   }
 
   /// `Fetch genres failed`
-  String get fethc_genres_failed {
+  String get fetch_genres_failed {
     return Intl.message(
       'Fetch genres failed',
-      name: 'fethc_genres_failed',
+      name: 'fetch_genres_failed',
       desc: '',
       args: [],
     );
   }
 
   /// `Fetch movies failed`
-  String get fethc_movies_failed {
+  String get fetch_movies_failed {
     return Intl.message(
       'Fetch movies failed',
-      name: 'fethc_movies_failed',
+      name: 'fetch_movies_failed',
       desc: '',
       args: [],
     );

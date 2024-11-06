@@ -7,14 +7,14 @@ import 'package:q_architecture/q_architecture.dart';
 
 final movieEntityMapperProvider = Provider<EntityMapper<Movie, MovieResponse>>(
   (ref) => (response) {
-    final genresMap = ref.watch(allGenresProvider);
+    final genresMap = ref.read(allGenresProvider);
 
     return Movie(
       id: response.id,
       title: response.title,
       description: response.overview,
       posterImagePath: response.posterPath,
-      backdropImagePath: response.backdropPath,
+      backdropImagePath: response.backdropPath ?? '',
       voteAverage: response.voteAverage,
       genres: response.genreIds
           .map((id) => genresMap[id] ?? S.current.unknown_genre)

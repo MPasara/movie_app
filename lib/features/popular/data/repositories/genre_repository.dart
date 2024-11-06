@@ -11,6 +11,7 @@ final genreRepositoryProvider = Provider<GenreRepository>(
   (ref) => GenreRepositoryImpl(
     ref.watch(apiClientProvider),
   ),
+  name: 'Genre repository provider',
 );
 
 abstract interface class GenreRepository {
@@ -28,7 +29,7 @@ class GenreRepositoryImpl implements GenreRepository {
       return Right(response);
     } catch (e, st) {
       return Left(
-        Failure(title: S.current.fethc_genres_failed, error: e, stackTrace: st),
+        Failure(title: S.current.fetch_genres_failed, error: e, stackTrace: st),
       );
     }
   }

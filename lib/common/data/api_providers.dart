@@ -10,6 +10,7 @@ final apiClientProvider = Provider<ApiClient>(
       dioProvider(EnvInfo.apiBaseUrl),
     ),
   ),
+  name: 'Api provider',
 );
 
 final dioProvider = Provider.family<Dio, String>(
@@ -28,4 +29,5 @@ final dioProvider = Provider.family<Dio, String>(
     );
     return dio;
   },
+  name: 'Dio provider',
 );
