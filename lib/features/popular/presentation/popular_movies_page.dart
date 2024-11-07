@@ -37,14 +37,15 @@ class _PopularMoviesPageState extends ConsumerState<PopularMoviesPage> {
   }
 
   void _loadMore() {
-    if (_scrollController.position.pixels >=
+    if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
-      final currentPage = ref.read(currentPageProvider.notifier).state + 1;
+      final currentPage = ref.read(currentPageProvider.notifier).state;
+      final nextPage = currentPage + 1;
 
       ref
           .read(popularMoviesNotifierProvider.notifier)
-          .getPopularMovies(currentPage);
-      ref.read(currentPageProvider.notifier).state = currentPage;
+          .getPopularMovies(nextPage);
+      ref.read(currentPageProvider.notifier).state = nextPage;
       return;
     }
   }

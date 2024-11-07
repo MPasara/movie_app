@@ -23,10 +23,15 @@ class MovieDetailsPage extends ConsumerWidget {
           SizedBox(
             width: double.infinity,
             height: 334,
-            child: Image.network(
-              kImagesBaseUrl + movie.backdropImagePath,
-              fit: BoxFit.cover,
-            ),
+            child: movie.backdropImagePath != ''
+                ? Image.network(
+                    kImagesBaseUrl + movie.backdropImagePath!,
+                    fit: BoxFit.cover,
+                  )
+                : Image.network(
+                    kImagesBaseUrl + movie.posterImagePath,
+                    fit: BoxFit.cover,
+                  ),
           ),
           Positioned(
             top: 50,
