@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -24,12 +25,12 @@ class MovieDetailsPage extends ConsumerWidget {
             width: double.infinity,
             height: 334,
             child: movie.backdropImagePath != ''
-                ? Image.network(
-                    kImagesBaseUrl + movie.backdropImagePath!,
+                ? CachedNetworkImage(
+                    imageUrl: kImagesBaseUrl + movie.backdropImagePath!,
                     fit: BoxFit.cover,
                   )
-                : Image.network(
-                    kImagesBaseUrl + movie.posterImagePath,
+                : CachedNetworkImage(
+                    imageUrl: kImagesBaseUrl + movie.posterImagePath,
                     fit: BoxFit.cover,
                   ),
           ),

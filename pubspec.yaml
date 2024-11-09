@@ -13,6 +13,7 @@ flutter_intl:
   enabled: true
 
 dependencies:
+  cached_network_image: ^3.4.1
   cupertino_icons: ^1.0.8
   dio: ^5.5.0
   either_dart: ^1.0.0
