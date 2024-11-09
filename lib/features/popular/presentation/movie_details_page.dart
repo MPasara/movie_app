@@ -119,14 +119,16 @@ class MovieDetailsPage extends ConsumerWidget {
                       ],
                     ),
                     const SizedBox(height: 40),
-                    Text(
-                      S.of(context).description,
-                      style: TextStyle(
-                        color: context.appColors.defaultColor,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15,
-                      ),
-                    ),
+                    movie.description != ''
+                        ? Text(
+                            S.of(context).description,
+                            style: TextStyle(
+                              color: context.appColors.defaultColor,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15,
+                            ),
+                          )
+                        : const SizedBox(),
                     Column(
                       children: [
                         const SizedBox(height: 8),

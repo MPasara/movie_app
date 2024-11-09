@@ -6,6 +6,7 @@ import 'package:movie_app/common/presentation/widgets/app_drawer.dart';
 import 'package:movie_app/common/presentation/widgets/movie_app_bar.dart';
 import 'package:movie_app/features/popular/domain/notifiers/popular_movies_notifier.dart';
 import 'package:movie_app/features/popular/domain/providers/current_page_provider.dart';
+import 'package:movie_app/features/popular/domain/providers/total_pages_provider.dart';
 import 'package:movie_app/features/popular/presentation/widgets/popular_movies_list_widget.dart';
 import 'package:movie_app/generated/l10n.dart';
 import 'package:q_architecture/base_notifier.dart';
@@ -39,14 +40,16 @@ class _PopularMoviesPageState extends ConsumerState<PopularMoviesPage> {
   void _loadMore() {
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
+      final totalPages = ref.read(totalPagesProvider);
       final currentPage = ref.read(currentPageProvider.notifier).state;
       final nextPage = currentPage + 1;
 
-      ref
-          .read(popularMoviesNotifierProvider.notifier)
-          .getPopularMovies(nextPage);
-      ref.read(currentPageProvider.notifier).state = nextPage;
-      return;
+      if (nextPage < totalPages) {
+        ref
+            .read(popularMoviesNotifierProvider.notifier)
+            .getPopularMovies(nextPage);
+        ref.read(currentPageProvider.notifier).state = nextPage;
+      }
     }
   }
 
