@@ -67,10 +67,10 @@ class _PopularMoviesPageState extends ConsumerState<PopularMoviesPage> {
         BaseError(failure: final failure) => Center(
             child: Text(
               failure.toString(),
-              style: const TextStyle(color: Colors.white),
+              style: TextStyle(color: context.appColors.defaultColor),
             ),
           ),
-        BaseData(data: final movies) => Column(
+        BaseData(data: final movieWrapper) => Column(
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 28, bottom: 4, left: 20),
@@ -84,7 +84,7 @@ class _PopularMoviesPageState extends ConsumerState<PopularMoviesPage> {
                 ),
               ),
               PopularMoviesListWidget(
-                movies: movies,
+                movies: movieWrapper.movies,
                 scrollController: _scrollController,
               ),
             ],

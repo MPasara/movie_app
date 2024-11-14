@@ -12,7 +12,7 @@ class GenreChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: context.appColors.genreTagBackground,
+        color: context.appColors.genreTagBackground!.withOpacity(0.2),
         borderRadius: BorderRadius.circular(4),
       ),
       child: Padding(
@@ -22,7 +22,7 @@ class GenreChip extends StatelessWidget {
         ),
         child: Text(
           name,
-          style: const TextStyle(color: Colors.white),
+          style: TextStyle(color: context.appColors.defaultColor),
         ),
       ),
     );

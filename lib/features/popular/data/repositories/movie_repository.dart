@@ -3,10 +3,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:movie_app/common/data/api_client.dart';
 import 'package:movie_app/common/data/providers.dart';
 import 'package:movie_app/common/utils/constants.dart';
-import 'package:movie_app/features/popular/data/mappers/movie_entity_mapper.dart';
+import 'package:movie_app/features/popular/data/mappers/movie_wrapper_entity_mapper.dart';
 import 'package:movie_app/features/popular/data/models/movie_response.dart';
 import 'package:movie_app/features/popular/data/repositories/genre_repository.dart';
-import 'package:movie_app/features/popular/domain/entities/movie.dart';
+import 'package:movie_app/features/popular/domain/entities/movie_wrapper.dart';
 import 'package:movie_app/features/popular/domain/providers/all_genres_provider.dart';
 import 'package:movie_app/features/popular/domain/providers/total_pages_provider.dart';
 import 'package:movie_app/generated/l10n.dart';
@@ -17,33 +17,31 @@ final movieRepositoryProvider = Provider<MovieRepository>(
     ref,
     ref.watch(apiClientProvider),
     ref.watch(genreRepositoryProvider),
-    ref.watch(
-      movieEntityMapperProvider,
-    ),
+    ref.watch(movieWrapperEntityMapper),
   ),
   name: 'Movie repository provider',
 );
 
 abstract interface class MovieRepository {
-  EitherFailureOr<List<Movie>> getMovies(int page);
+  EitherFailureOr<MovieWrapper> getMovies(int page);
 }
 
 class MovieRepositoryImpl implements MovieRepository {
   final Ref ref;
   final ApiClient _apiClient;
   final GenreRepository _genreRepository;
-  final EntityMapper<Movie, MovieResponse> _movieMapper;
+  final EntityMapper<MovieWrapper, MovieResponseWrapper>
+      _movieWrapperEntityMapper;
 
   MovieRepositoryImpl(
     this.ref,
     this._apiClient,
     this._genreRepository,
-    this._movieMapper,
+    this._movieWrapperEntityMapper,
   );
 
   @override
-  EitherFailureOr<List<Movie>> getMovies(int page) async {
-    final movies = <Movie>[];
+  EitherFailureOr<MovieWrapper> getMovies(int page) async {
     final genreMap = ref.read(allGenresProvider.notifier);
 
     try {
@@ -54,10 +52,8 @@ class MovieRepositoryImpl implements MovieRepository {
       );
 
       ref.read(totalPagesProvider.notifier).state = response.totalPages;
-
-      final movieResponseList = response.results;
       final eitherFailureOrGenres = await _genreRepository.getAllGenres();
-
+      //genre try-catch
       try {
         eitherFailureOrGenres.fold(
           (failure) => Failure(title: failure.title, error: failure.error),
@@ -78,13 +74,10 @@ class MovieRepositoryImpl implements MovieRepository {
           ),
         );
       }
+      //
+      final movieWrapperEntity = _movieWrapperEntityMapper(response);
 
-      for (final movieResponse in movieResponseList) {
-        final movie = _movieMapper(movieResponse);
-        movies.add(movie);
-      }
-
-      return Right(movies);
+      return Right(movieWrapperEntity);
     } catch (e, st) {
       return Left(
         Failure(title: S.current.fetch_movies_failed, error: e, stackTrace: st),

@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:movie_app/common/domain/router/navigation_extensions.dart';
 import 'package:movie_app/common/presentation/build_context_extensions.dart';
 import 'package:movie_app/common/presentation/image_assets.dart';
+import 'package:movie_app/common/presentation/spacing.dart';
 import 'package:movie_app/common/presentation/widgets/genre_chip.dart';
 import 'package:movie_app/common/utils/constants.dart';
 import 'package:movie_app/features/popular/domain/entities/movie.dart';
@@ -24,20 +25,17 @@ class MovieDetailsPage extends ConsumerWidget {
           SizedBox(
             width: double.infinity,
             height: 334,
-            child: movie.backdropImagePath != ''
-                ? CachedNetworkImage(
-                    imageUrl: kImagesBaseUrl + movie.backdropImagePath!,
-                    fit: BoxFit.cover,
-                  )
-                : CachedNetworkImage(
-                    imageUrl: kImagesBaseUrl + movie.posterImagePath,
-                    fit: BoxFit.cover,
-                  ),
+            child: CachedNetworkImage(
+              imageUrl: kImagesBaseUrl +
+                  ((movie.backdropImagePath?.isNotEmpty == true)
+                      ? movie.backdropImagePath!
+                      : movie.posterImagePath),
+              fit: BoxFit.cover,
+            ),
           ),
           Positioned(
             top: 50,
-            left: 0,
-            right: 320,
+            left: 20,
             child: GestureDetector(
               onTap: () => ref.pop(),
               child: SvgPicture.asset(ImageAssets.arrowBack),
@@ -99,7 +97,7 @@ class MovieDetailsPage extends ConsumerWidget {
                           SvgPicture.asset(
                             ImageAssets.star,
                           ),
-                          const SizedBox(width: 4),
+                          spacing4,
                           Text(
                             S.of(context).movie_rating(
                                   movie.voteAverage.toStringAsFixed(1),
