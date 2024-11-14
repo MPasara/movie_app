@@ -5,6 +5,7 @@ import 'package:movie_app/common/presentation/build_context_extensions.dart';
 import 'package:movie_app/features/popular/domain/entities/movie.dart';
 import 'package:movie_app/features/popular/domain/notifiers/popular_movies_notifier.dart';
 import 'package:movie_app/features/popular/presentation/widgets/popular_movie_list_tile.dart';
+import 'package:q_architecture/base_notifier.dart';
 
 class PopularMoviesListWidget extends ConsumerStatefulWidget {
   const PopularMoviesListWidget({
@@ -26,6 +27,16 @@ class _PopularMoviesListWidgetState
     with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    final moviesState = ref.watch(popularMoviesNotifierProvider);
+    final isLoading = switch (moviesState) {
+      BaseData(:final data) => data.isLoading,
+      BaseLoading() => true,
+      _ => false,
+    };
+
+    final itemCount =
+        isLoading ? widget.movies.length + 1 : widget.movies.length;
+
     super.build(context);
 
     return Expanded(
@@ -39,14 +50,24 @@ class _PopularMoviesListWidgetState
           color: context.appColors.defaultColor,
           backgroundColor: context.appColors.background,
           displacement: 12,
-          child: ListView.builder(
-            controller: widget.scrollController,
-            padding: const EdgeInsets.only(top: 16),
-            itemCount: widget.movies.length,
-            itemBuilder: (context, index) {
-              final movie = widget.movies[index];
-              return PopularMovieListTile(movie: movie);
-            },
+          child: Stack(
+            children: [
+              ListView.builder(
+                controller: widget.scrollController,
+                padding: const EdgeInsets.only(top: 16),
+                shrinkWrap: true,
+                itemCount: itemCount,
+                itemBuilder: (context, index) {
+                  final movie = widget.movies[index];
+                  return PopularMovieListTile(movie: movie);
+                },
+              ),
+              isLoading
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : const SizedBox(),
+            ],
           ),
         ),
       ),

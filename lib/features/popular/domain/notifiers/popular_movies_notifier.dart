@@ -44,7 +44,7 @@ class PopularMoviesNotifier extends Notifier<BaseState<MovieWrapper>> {
     eitherFailureOrMovieWrapper.fold(
       (failure) {
         switch (state) {
-          case BaseData(:final data):
+          case BaseData():
             break;
           default:
             state = BaseState.error(
