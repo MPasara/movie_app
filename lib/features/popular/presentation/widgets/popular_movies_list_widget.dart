@@ -52,6 +52,7 @@ class _PopularMoviesListWidgetState
           displacement: 12,
           child: Stack(
             children: [
+              // Your ListView
               ListView.builder(
                 controller: widget.scrollController,
                 padding: const EdgeInsets.only(top: 16),
@@ -62,11 +63,15 @@ class _PopularMoviesListWidgetState
                   return PopularMovieListTile(movie: movie);
                 },
               ),
-              isLoading
-                  ? const Center(
+              if (isLoading)
+                Positioned.fill(
+                  child: Container(
+                    color: Colors.black.withOpacity(0.5),
+                    child: const Center(
                       child: CircularProgressIndicator(),
-                    )
-                  : const SizedBox(),
+                    ),
+                  ),
+                ),
             ],
           ),
         ),

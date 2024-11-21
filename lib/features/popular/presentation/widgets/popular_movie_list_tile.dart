@@ -14,11 +14,9 @@ import 'package:movie_app/generated/l10n.dart';
 class PopularMovieListTile extends ConsumerWidget {
   const PopularMovieListTile({
     super.key,
-   
     required this.movie,
   });
 
- 
   final Movie movie;
 
   @override
@@ -59,11 +57,7 @@ class PopularMovieListTile extends ConsumerWidget {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
                             softWrap: true,
-                            style: TextStyle(
-                              color: context.appColors.defaultColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                            ),
+                            style: context.appTextStyles.movieCardTitle,
                           ),
                         ),
                         Flexible(
@@ -90,9 +84,7 @@ class PopularMovieListTile extends ConsumerWidget {
                             S.of(context).movie_rating(
                                   movie.voteAverage.toStringAsFixed(1),
                                 ),
-                            style: TextStyle(
-                              color: context.appColors.defaultColor,
-                            ),
+                            style: context.appTextStyles.movieRating,
                           ),
                         ],
                       ),

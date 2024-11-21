@@ -68,11 +68,7 @@ class MovieDetailsPage extends ConsumerWidget {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 3,
                             softWrap: true,
-                            style: TextStyle(
-                              color: context.appColors.defaultColor,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 20,
-                            ),
+                            style: context.appTextStyles.movieDetailsTitle,
                           ),
                         ),
                         Flexible(
@@ -102,9 +98,7 @@ class MovieDetailsPage extends ConsumerWidget {
                             S.of(context).movie_rating(
                                   movie.voteAverage.toStringAsFixed(1),
                                 ),
-                            style: TextStyle(
-                              color: context.appColors.defaultColor,
-                            ),
+                            style: context.appTextStyles.movieRating,
                           ),
                         ],
                       ),
@@ -121,11 +115,7 @@ class MovieDetailsPage extends ConsumerWidget {
                     movie.description != ''
                         ? Text(
                             S.of(context).description,
-                            style: TextStyle(
-                              color: context.appColors.defaultColor,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15,
-                            ),
+                            style: context.appTextStyles.movieCardTitle,
                           )
                         : const SizedBox(),
                     Column(
@@ -133,11 +123,7 @@ class MovieDetailsPage extends ConsumerWidget {
                         const SizedBox(height: 8),
                         Text(
                           movie.description,
-                          style: TextStyle(
-                            color: context.appColors.defaultColor,
-                            fontWeight: FontWeight.w300,
-                            fontSize: 13,
-                          ),
+                          style: context.appTextStyles.movieDescription,
                         ),
                         const SizedBox(height: 14),
                       ],

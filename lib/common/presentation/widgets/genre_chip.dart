@@ -22,7 +22,7 @@ class GenreChip extends StatelessWidget {
         ),
         child: Text(
           name,
-          style: TextStyle(color: context.appColors.defaultColor),
+          style: context.appTextStyles.genreName,
         ),
       ),
     );
