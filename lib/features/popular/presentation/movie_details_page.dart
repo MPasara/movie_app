@@ -120,12 +120,12 @@ class MovieDetailsPage extends ConsumerWidget {
                         : const SizedBox(),
                     Column(
                       children: [
-                        const SizedBox(height: 8),
+                        spacing8,
                         Text(
                           movie.description,
                           style: context.appTextStyles.movieDescription,
                         ),
-                        const SizedBox(height: 14),
+                        spacing14,
                       ],
                     ),
                   ],
