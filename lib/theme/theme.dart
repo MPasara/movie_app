@@ -10,7 +10,7 @@ final secondaryTheme = _getTheme(
     secondary: Color(0xFFec9b3e), //#ec9b3e
     background: Color(0xFF0E1324),
     bottomNavBarBackground: Color(0xFF010510),
-    genreTagBackground: Color(0xffec9b3e33),
+    genreTagBackground: Color(0xffec9b3e),
   ),
 );
 

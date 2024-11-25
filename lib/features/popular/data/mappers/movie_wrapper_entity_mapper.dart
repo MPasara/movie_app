@@ -1,0 +1,21 @@
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:movie_app/features/popular/data/mappers/movie_entity_mapper.dart';
+import 'package:movie_app/features/popular/data/models/movie_response.dart';
+import 'package:movie_app/features/popular/domain/entities/movie_wrapper.dart';
+import 'package:q_architecture/q_architecture.dart';
+
+final movieWrapperEntityMapper =
+    Provider<EntityMapper<MovieWrapper, MovieResponseWrapper>>(
+  (ref) => (response) {
+    final movieMapper = ref.read(movieEntityMapperProvider);
+    return MovieWrapper(
+      totalPages: response.totalPages,
+      currentPage: response.page,
+      movies: response.results
+          .map(
+            (movieResponse) => movieMapper(movieResponse),
+          )
+          .toList(growable: true),
+    );
+  },
+);

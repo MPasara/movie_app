@@ -4,92 +4,81 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:movie_app/common/presentation/build_context_extensions.dart';
 import 'package:movie_app/common/presentation/widgets/app_drawer.dart';
 import 'package:movie_app/common/presentation/widgets/movie_app_bar.dart';
+import 'package:movie_app/features/popular/domain/notifiers/popular_movies_notifier.dart';
+import 'package:movie_app/features/popular/presentation/widgets/popular_movies_list_widget.dart';
 import 'package:movie_app/generated/l10n.dart';
+import 'package:q_architecture/base_notifier.dart';
 
-class PopularMoviesPage extends ConsumerWidget {
+class PopularMoviesPage extends ConsumerStatefulWidget {
   static const routeName = '/popular-movies';
 
-  PopularMoviesPage({super.key});
-  final GlobalKey<ScaffoldState> _globalKey = GlobalKey();
+  const PopularMoviesPage({super.key});
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<PopularMoviesPage> createState() => _PopularMoviesPageState();
+}
+
+class _PopularMoviesPageState extends ConsumerState<PopularMoviesPage> {
+  final GlobalKey<ScaffoldState> _globalKey = GlobalKey();
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_loadMore);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_loadMore);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _loadMore() {
+    if (_scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent) {
+      ref.read(popularMoviesNotifierProvider.notifier).loadMoreMovies();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final state = ref.watch(popularMoviesNotifierProvider);
+
     return Scaffold(
       key: _globalKey,
       drawer: const AppDrawer(),
       appBar: MovieAppBar(globalKey: _globalKey),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 20, top: 28),
-            child: Row(
-              children: [
-                Text(
-                  S.of(context).popular,
-                  style: context.appTextStyles.bold!.copyWith(fontSize: 22),
+      body: switch (state) {
+        BaseInitial() => const SizedBox(),
+        BaseLoading() => const Center(child: CircularProgressIndicator()),
+        BaseError(failure: final failure) => Center(
+            child: Text(
+              failure.toString(),
+              style: TextStyle(color: context.appColors.defaultColor),
+            ),
+          ),
+        BaseData(data: final movieWrapper) => Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 28, bottom: 4, left: 20),
+                child: Row(
+                  children: [
+                    Text(
+                      S.of(context).popular,
+                      style: context.appTextStyles.bold!.copyWith(fontSize: 22),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              PopularMoviesListWidget(
+                movies: movieWrapper.movies,
+                scrollController: _scrollController,
+              ),
+            ],
           ),
-        ],
-      ),
+      },
     );
-    /* ListView(
-      children: [
-        Text(
-          'Dashboard',
-          style: context.appTextStyles.boldLarge,
-          textAlign: TextAlign.center,
-        ),
-        spacing16,
-        TextButton(
-          onPressed: ref.read(authNotifierProvider.notifier).logout,
-          child: Text(
-            'Logout',
-            style: context.appTextStyles.regular,
-          ),
-        ),
-        spacing16,
-        TextButton(
-          onPressed: () => ref.pushNamed(
-            ref.getRouteNameFromCurrentLocation(ExamplePage.routeName),
-          ),
-          child: Text(
-            'Go to example page',
-            style: context.appTextStyles.bold,
-          ),
-        ),
-        spacing16,
-        TextButton(
-          onPressed: () => ref.pushNamed(
-            ref.getRouteNameFromCurrentLocation(
-              UserDetailsPage.getRouteNameWithParams(1),
-            ),
-          ),
-          child: Text(
-            'Dashboard -> User details 1',
-            style: context.appTextStyles.bold,
-          ),
-        ),
-        spacing16,
-        TextButton(
-          onPressed: () => ref.pushNamed(
-            '${UsersPage.routeName}${UserDetailsPage.getRouteNameWithParams(1)}',
-          ),
-          child: Text(
-            'Users -> User details 1',
-            style: context.appTextStyles.bold,
-          ),
-        ),
-        if (!EnvInfo.isProduction) ...[
-          spacing16,
-          TextButton(
-            onPressed: () => QLogger.showLogger(
-              ref.read(baseRouterProvider).navigatorContext!,
-            ),
-            child: Text('Show log report', style: context.appTextStyles.bold),
-          ),
-        ],
-      ],
-    ); */
   }
 }

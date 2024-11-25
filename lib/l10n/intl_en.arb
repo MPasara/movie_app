@@ -4,5 +4,10 @@
     "permission_denied": "Permission has been denied, please enable it in device settings",
     "popular" : "Popular",
     "favourites" : "Favourites",
-    "movies" : "Movies"
+    "movies" : "Movies",
+    "movie_rating" : "{rating} / 10 IMDb",
+    "description" : "Description",
+    "fetch_genres_failed" : "Fetch genres failed",
+    "fetch_movies_failed" : "Fetch movies failed",
+    "unknown_genre" : "Unknown"
 }

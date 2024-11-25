@@ -99,6 +99,56 @@ class S {
       args: [],
     );
   }
+
+  /// `{rating} / 10 IMDb`
+  String movie_rating(Object rating) {
+    return Intl.message(
+      '$rating / 10 IMDb',
+      name: 'movie_rating',
+      desc: '',
+      args: [rating],
+    );
+  }
+
+  /// `Description`
+  String get description {
+    return Intl.message(
+      'Description',
+      name: 'description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fetch genres failed`
+  String get fetch_genres_failed {
+    return Intl.message(
+      'Fetch genres failed',
+      name: 'fetch_genres_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fetch movies failed`
+  String get fetch_movies_failed {
+    return Intl.message(
+      'Fetch movies failed',
+      name: 'fetch_movies_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unknown`
+  String get unknown_genre {
+    return Intl.message(
+      'Unknown',
+      name: 'unknown_genre',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

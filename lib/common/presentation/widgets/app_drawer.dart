@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:movie_app/common/presentation/build_context_extensions.dart';
+import 'package:movie_app/common/presentation/spacing.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({
@@ -24,13 +25,13 @@ class AppDrawer extends StatelessWidget {
               width: 40,
               height: 40,
             ),
-            const SizedBox(width: 8),
+            spacing8,
             Container(
               color: Colors.pink,
               width: 40,
               height: 40,
             ),
-            const SizedBox(width: 8),
+            spacing8,
             Container(
               color: Colors.pink,
               width: 40,

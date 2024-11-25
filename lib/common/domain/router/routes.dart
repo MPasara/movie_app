@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:movie_app/features/popular/domain/entities/movie.dart';
+import 'package:movie_app/features/popular/presentation/movie_details_page.dart';
 
 import '../../../common/domain/utils/string_extension.dart';
 import '../../../example/example_routes.dart';
@@ -58,8 +60,16 @@ RouteBase _statefulShellRoute({
           routes: [
             GoRoute(
               path: PopularMoviesPage.routeName,
-              builder: (context, state) => PopularMoviesPage(),
+              builder: (context, state) => const PopularMoviesPage(),
               routes: [
+                GoRoute(
+                  path: MovieDetailsPage.routeName.removeLeadingSlash,
+                  parentNavigatorKey: rootNavigatorKey,
+                  builder: (context, state) {
+                    final movie = state.extra as Movie;
+                    return MovieDetailsPage(movie: movie);
+                  },
+                ),
                 GoRoute(
                   path: UserDetailsPage.routeName.removeLeadingSlash,
                   builder: (context, state) => UserDetailsPage(
@@ -179,7 +189,7 @@ RouteBase _shellRoute({required GlobalKey<NavigatorState> rootNavigatorKey}) =>
       routes: [
         GoRoute(
           path: PopularMoviesPage.routeName,
-          builder: (context, state) => PopularMoviesPage(),
+          builder: (context, state) => const PopularMoviesPage(),
           routes: [
             GoRoute(
               path: UserDetailsPage.routeName.removeLeadingSlash,

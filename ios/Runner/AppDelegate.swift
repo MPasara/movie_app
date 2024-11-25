@@ -2,7 +2,7 @@ import UIKit
 import Flutter
 import AppTrackingTransparency
 
-@UIApplicationMain
+@main
 @objc class AppDelegate: FlutterAppDelegate {
     
     override func application(
