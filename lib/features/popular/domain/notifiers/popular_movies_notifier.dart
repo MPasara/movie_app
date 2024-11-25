@@ -23,6 +23,20 @@ class PopularMoviesNotifier extends Notifier<BaseState<MovieWrapper>> {
     return const BaseState.initial();
   }
 
+  void loadMoreMovies() {
+    final totalPages = switch (state) {
+      BaseData(:final data) => data.totalPages,
+      _ => 0,
+    };
+    final currentPage = switch (state) {
+      BaseData(:final data) => data.currentPage,
+      _ => 0,
+    };
+    final nextPage = currentPage + 1;
+
+    if (nextPage < totalPages) getPopularMovies(nextPage);
+  }
+
   Future<void> getPopularMovies(int page) async {
     await Future.delayed(const Duration(milliseconds: 100));
     final isLoading = switch (state) {

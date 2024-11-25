@@ -8,7 +8,6 @@ import 'package:movie_app/features/popular/data/models/movie_response.dart';
 import 'package:movie_app/features/popular/data/repositories/genre_repository.dart';
 import 'package:movie_app/features/popular/domain/entities/movie_wrapper.dart';
 import 'package:movie_app/features/popular/domain/providers/all_genres_provider.dart';
-import 'package:movie_app/features/popular/domain/providers/total_pages_provider.dart';
 import 'package:movie_app/generated/l10n.dart';
 import 'package:q_architecture/q_architecture.dart';
 
@@ -51,7 +50,6 @@ class MovieRepositoryImpl implements MovieRepository {
         page,
       );
 
-      ref.read(totalPagesProvider.notifier).state = response.totalPages;
       final eitherFailureOrGenres = await _genreRepository.getAllGenres();
       //genre try-catch
       try {
