@@ -7,7 +7,6 @@ class Movie extends Equatable {
   final String posterImagePath;
   final String? backdropImagePath;
   final double voteAverage;
-  final bool isFavourite;
   final List<String> genres;
 
   const Movie({
@@ -17,7 +16,6 @@ class Movie extends Equatable {
     required this.posterImagePath,
     required this.backdropImagePath,
     required this.voteAverage,
-    this.isFavourite = false,
     required this.genres,
   });
 
@@ -28,7 +26,6 @@ class Movie extends Equatable {
     String? posterImagePath,
     String? backdropImagePath,
     double? voteAverage,
-    bool? isFavourite,
     List<String>? genres,
   }) =>
       Movie(
@@ -38,7 +35,6 @@ class Movie extends Equatable {
         posterImagePath: posterImagePath ?? this.posterImagePath,
         backdropImagePath: backdropImagePath ?? this.backdropImagePath,
         voteAverage: voteAverage ?? this.voteAverage,
-        isFavourite: isFavourite ?? this.isFavourite,
         genres: genres ?? this.genres,
       );
 
@@ -50,7 +46,6 @@ class Movie extends Equatable {
         posterImagePath,
         backdropImagePath,
         voteAverage,
-        isFavourite,
         genres,
       ];
 }

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:loggy/loggy.dart';
-import 'package:movie_app/common/utils/constants.dart';
+import 'package:movie_app/common/utils/constants/constants.dart';
 
 class CustomInterceptor extends Interceptor {
   @override

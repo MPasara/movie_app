@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:movie_app/common/domain/router/navigation_extensions.dart';
@@ -7,18 +8,26 @@ import 'package:movie_app/common/presentation/build_context_extensions.dart';
 import 'package:movie_app/common/presentation/image_assets.dart';
 import 'package:movie_app/common/presentation/spacing.dart';
 import 'package:movie_app/common/presentation/widgets/genre_chip.dart';
-import 'package:movie_app/common/utils/constants.dart';
+import 'package:movie_app/common/utils/constants/constants.dart';
+import 'package:movie_app/features/favourite/domain/notifiers/favourite_movies_notifier.dart';
 import 'package:movie_app/features/popular/domain/entities/movie.dart';
 import 'package:movie_app/generated/l10n.dart';
 
-class MovieDetailsPage extends ConsumerWidget {
+class MovieDetailsPage extends ConsumerStatefulWidget {
   static const routeName = '/movie-details';
 
   final Movie movie;
   const MovieDetailsPage({super.key, required this.movie});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MovieDetailsPage> createState() => _MovieDetailsPageState();
+}
+
+class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
+  @override
+  Widget build(BuildContext context) {
+    final isFavourite =
+        ref.watch(favouriteMoviesProvider).contains(widget.movie.id);
     return Scaffold(
       body: Stack(
         children: [
@@ -27,9 +36,9 @@ class MovieDetailsPage extends ConsumerWidget {
             height: 334,
             child: CachedNetworkImage(
               imageUrl: kImagesBaseUrl +
-                  ((movie.backdropImagePath?.isNotEmpty == true)
-                      ? movie.backdropImagePath!
-                      : movie.posterImagePath),
+                  ((widget.movie.backdropImagePath?.isNotEmpty == true)
+                      ? widget.movie.backdropImagePath!
+                      : widget.movie.posterImagePath),
               fit: BoxFit.cover,
             ),
           ),
@@ -64,7 +73,7 @@ class MovieDetailsPage extends ConsumerWidget {
                         Flexible(
                           flex: 5,
                           child: Text(
-                            movie.title,
+                            widget.movie.title,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 3,
                             softWrap: true,
@@ -74,10 +83,19 @@ class MovieDetailsPage extends ConsumerWidget {
                         Flexible(
                           flex: 1,
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              HapticFeedback.mediumImpact();
+                              ref
+                                  .read(favouriteMoviesProvider.notifier)
+                                  .toggleFavourite(widget.movie);
+                            },
                             icon: Icon(
-                              Icons.bookmark_outline,
-                              color: context.appColors.defaultColor,
+                              isFavourite
+                                  ? Icons.bookmark
+                                  : Icons.bookmark_outline,
+                              color: isFavourite
+                                  ? context.appColors.secondary
+                                  : context.appColors.defaultColor,
                             ),
                           ),
                         ),
@@ -96,7 +114,7 @@ class MovieDetailsPage extends ConsumerWidget {
                           spacing4,
                           Text(
                             S.of(context).movie_rating(
-                                  movie.voteAverage.toStringAsFixed(1),
+                                  widget.movie.voteAverage.toStringAsFixed(1),
                                 ),
                             style: context.appTextStyles.movieRating,
                           ),
@@ -107,12 +125,12 @@ class MovieDetailsPage extends ConsumerWidget {
                       spacing: 5,
                       runSpacing: 4,
                       children: [
-                        for (final genre in movie.genres)
+                        for (final genre in widget.movie.genres)
                           GenreChip(name: genre),
                       ],
                     ),
                     const SizedBox(height: 40),
-                    movie.description != ''
+                    widget.movie.description != ''
                         ? Text(
                             S.of(context).description,
                             style: context.appTextStyles.movieCardTitle,
@@ -122,7 +140,7 @@ class MovieDetailsPage extends ConsumerWidget {
                       children: [
                         spacing8,
                         Text(
-                          movie.description,
+                          widget.movie.description,
                           style: context.appTextStyles.movieDescription,
                         ),
                         spacing14,
