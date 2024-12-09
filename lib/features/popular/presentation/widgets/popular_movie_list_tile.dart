@@ -29,15 +29,13 @@ class PopularMovieListTile extends ConsumerStatefulWidget {
 class _PopularMovieListTileState extends ConsumerState<PopularMovieListTile> {
   @override
   void initState() {
-    checkIfMovieIsFavourite();
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final isFavourite =
-        ref.watch(favouriteMoviesProvider).contains(widget.movie.id);
+        ref.watch(favouriteMoviesProvider).containsKey(widget.movie.id);
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: InkWell(
@@ -131,11 +129,5 @@ class _PopularMovieListTileState extends ConsumerState<PopularMovieListTile> {
         ),
       ),
     );
-  }
-
-  Future<bool> checkIfMovieIsFavourite() async {
-    final isFavourite =
-        ref.watch(favouriteMoviesProvider).contains(widget.movie.id);
-    return isFavourite;
   }
 }

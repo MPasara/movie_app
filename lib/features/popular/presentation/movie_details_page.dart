@@ -27,7 +27,7 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
   @override
   Widget build(BuildContext context) {
     final isFavourite =
-        ref.watch(favouriteMoviesProvider).contains(widget.movie.id);
+        ref.watch(favouriteMoviesProvider).containsKey(widget.movie.id);
     return Scaffold(
       body: Stack(
         children: [
