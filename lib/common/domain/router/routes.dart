@@ -93,7 +93,7 @@ RouteBase _statefulShellRoute({
           routes: [
             GoRoute(
               path: FavouriteMoviePage.routeName,
-              builder: (context, state) => FavouriteMoviePage(),
+              builder: (context, state) => const FavouriteMoviePage(),
               routes: [
                 GoRoute(
                   path: MovieDetailsPage.routeName.removeLeadingSlash,
@@ -217,7 +217,7 @@ RouteBase _shellRoute({required GlobalKey<NavigatorState> rootNavigatorKey}) =>
         ),
         GoRoute(
           path: FavouriteMoviePage.routeName,
-          builder: (context, state) => FavouriteMoviePage(),
+          builder: (context, state) => const FavouriteMoviePage(),
           routes: [
             GoRoute(
               path: UserDetailsPage.routeName.removeLeadingSlash,

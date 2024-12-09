@@ -82,7 +82,8 @@ class _PopularMovieListTileState extends ConsumerState<PopularMovieListTile> {
                               HapticFeedback.mediumImpact();
                               ref
                                   .read(
-                                      favouriteMoviesNotifierProvider.notifier)
+                                    favouriteMoviesNotifierProvider.notifier,
+                                  )
                                   .toggleFavourite(widget.movie);
                             },
                             icon: Icon(
