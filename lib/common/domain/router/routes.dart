@@ -17,7 +17,7 @@ import '../../../features/popular/presentation/popular_movies_page.dart';
 import '../../../features/register/presentation/register_page.dart';
 import '../../../features/reset_password/presentation/reset_password_page.dart';
 import '../../../features/users/presentation/user_details_page.dart';
-import '../../../features/users/presentation/users_page.dart';
+import '../../../features/favourite/presentation/pages/favourite_movies_page.dart';
 import 'go_router_state_extension.dart';
 
 List<RouteBase> getRoutes({
@@ -92,8 +92,8 @@ RouteBase _statefulShellRoute({
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: UsersPage.routeName,
-              builder: (context, state) => UsersPage(),
+              path: FavouriteMoviePage.routeName,
+              builder: (context, state) => FavouriteMoviePage(),
               routes: [
                 GoRoute(
                   path: UserDetailsPage.routeName.removeLeadingSlash,
@@ -106,7 +106,7 @@ RouteBase _statefulShellRoute({
                       state.redirectIfPathParameterValid<int>(
                     pathParameterName:
                         UserDetailsPage.pathPattern.removeLeadingColon,
-                    redirectTo: UsersPage.routeName,
+                    redirectTo: FavouriteMoviePage.routeName,
                   ),
                 ),
               ],
@@ -208,8 +208,8 @@ RouteBase _shellRoute({required GlobalKey<NavigatorState> rootNavigatorKey}) =>
           ],
         ),
         GoRoute(
-          path: UsersPage.routeName,
-          builder: (context, state) => UsersPage(),
+          path: FavouriteMoviePage.routeName,
+          builder: (context, state) => FavouriteMoviePage(),
           routes: [
             GoRoute(
               path: UserDetailsPage.routeName.removeLeadingSlash,
@@ -222,7 +222,7 @@ RouteBase _shellRoute({required GlobalKey<NavigatorState> rootNavigatorKey}) =>
                   state.redirectIfPathParameterValid<int>(
                 pathParameterName:
                     UserDetailsPage.pathPattern.removeLeadingColon,
-                redirectTo: UsersPage.routeName,
+                redirectTo: FavouriteMoviePage.routeName,
               ),
             ),
           ],

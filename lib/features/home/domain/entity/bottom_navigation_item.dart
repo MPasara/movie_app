@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/generated/l10n.dart';
 
 import '../../../popular/presentation/popular_movies_page.dart';
-import '../../../users/presentation/users_page.dart';
+import '../../../favourite/presentation/pages/favourite_movies_page.dart';
 
 enum BottomNavigationItem {
   /* dashboard(icon: Icons.home, routeName: DashboardPage.routeName),
@@ -14,7 +14,8 @@ enum BottomNavigationItem {
     icon: Icons.movie_creation_outlined,
     routeName: PopularMoviesPage.routeName,
   ),
-  favourites(icon: Icons.bookmark_border, routeName: UsersPage.routeName);
+  favourites(
+      icon: Icons.bookmark_border, routeName: FavouriteMoviePage.routeName,);
 
   final IconData icon;
   final String routeName;
