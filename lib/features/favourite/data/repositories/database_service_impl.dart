@@ -23,7 +23,7 @@ class DatabaseServiceImpl implements DatabaseService {
       await dir.create(recursive: true);
       final dbPath = join(dir.path, SembastConstants.dbName);
       _database = await databaseFactoryIo.openDatabase(dbPath);
-    } on Exception catch (e, st) {
+    } catch (e, st) {
       logDebug('Init sembast database failed...', e, st);
     }
   }
@@ -37,7 +37,7 @@ class DatabaseServiceImpl implements DatabaseService {
           SembastConstants.favourite: true,
         },
       );
-    } on Exception catch (e, st) {
+    } catch (e, st) {
       logDebug('Favourite movie failed...', e, st);
     }
   }
@@ -46,7 +46,7 @@ class DatabaseServiceImpl implements DatabaseService {
   Future<void> unfavouriteMovie(int movieId) async {
     try {
       await _storeRef.record(movieId).delete(_database!);
-    } on Exception catch (e, st) {
+    } catch (e, st) {
       logDebug('Unfavourite movie failed...', e, st);
     }
   }
@@ -56,17 +56,18 @@ class DatabaseServiceImpl implements DatabaseService {
     try {
       final record = await _storeRef.record(movieId).get(_database!);
       return record != null;
-    } on Exception catch (e, st) {
+    } catch (e, st) {
       logDebug('Is movie favourite failed...', e, st);
       return false;
     }
   }
 
   @override
-  Future<List<int>> getFavouriteMovies() async {
+  Future<List<int>> getFavouriteMovieIds() async {
     try {
       final records = await _storeRef.find(_database!);
-      return records.map((record) => record.key).toList();
+      final favouriteMoviesIds = records.map((record) => record.key).toList();
+      return favouriteMoviesIds;
     } on Exception catch (e, st) {
       logDebug('Get favourite movies failed..', e, st);
       return [];
