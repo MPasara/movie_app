@@ -2,6 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
 import 'package:movie_app/common/utils/constants/sembast_constants.dart';
 import 'package:movie_app/features/favourite/data/repositories/database_service.dart';
+import 'package:movie_app/features/popular/domain/entities/movie.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast_io.dart';
@@ -29,23 +30,21 @@ class DatabaseServiceImpl implements DatabaseService {
   }
 
   @override
-  Future<void> favouriteMovie(int movieId) async {
+  Future<void> favouriteMovie(Movie movie) async {
     try {
-      await _storeRef.record(movieId).put(
-        _database!,
-        {
-          SembastConstants.favourite: true,
-        },
-      );
+      await _storeRef.record(movie.id).put(
+            _database!,
+            movie.toJson(),
+          );
     } catch (e, st) {
       logDebug('Favourite movie failed...', e, st);
     }
   }
 
   @override
-  Future<void> unfavouriteMovie(int movieId) async {
+  Future<void> unfavouriteMovie(Movie movie) async {
     try {
-      await _storeRef.record(movieId).delete(_database!);
+      await _storeRef.record(movie.id).delete(_database!);
     } catch (e, st) {
       logDebug('Unfavourite movie failed...', e, st);
     }
@@ -63,11 +62,17 @@ class DatabaseServiceImpl implements DatabaseService {
   }
 
   @override
-  Future<List<int>> getFavouriteMovieIds() async {
+  Future<List<Movie>> getFavouriteMovies() async {
+    final favouriteMovies = <Movie>[];
     try {
       final records = await _storeRef.find(_database!);
-      final favouriteMoviesIds = records.map((record) => record.key).toList();
-      return favouriteMoviesIds;
+
+      for (final record in records) {
+        final movieJson = record.value as Map<String, dynamic>;
+        favouriteMovies.add(Movie.fromJson(movieJson));
+      }
+
+      return favouriteMovies;
     } on Exception catch (e, st) {
       logDebug('Get favourite movies failed..', e, st);
       return [];

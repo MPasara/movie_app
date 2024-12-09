@@ -1,7 +1,9 @@
+import 'package:movie_app/features/popular/domain/entities/movie.dart';
+
 abstract interface class DatabaseService {
   Future<void> initDatabase();
-  Future<void> favouriteMovie(int movieId);
-  Future<void> unfavouriteMovie(int movieId);
+  Future<void> favouriteMovie(Movie movie);
+  Future<void> unfavouriteMovie(Movie movie);
   Future<bool> isMovieFavourite(int movieId);
-  Future<List<int>> getFavouriteMovieIds();
+  Future<List<Movie>> getFavouriteMovies();
 }

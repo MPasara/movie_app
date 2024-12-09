@@ -27,7 +27,7 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
   @override
   Widget build(BuildContext context) {
     final isFavourite =
-        ref.watch(favouriteMoviesProvider).containsKey(widget.movie.id);
+        ref.watch(favouriteMoviesNotifierProvider).containsKey(widget.movie.id);
     return Scaffold(
       body: Stack(
         children: [
@@ -86,7 +86,8 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
                             onPressed: () {
                               HapticFeedback.mediumImpact();
                               ref
-                                  .read(favouriteMoviesProvider.notifier)
+                                  .read(
+                                      favouriteMoviesNotifierProvider.notifier)
                                   .toggleFavourite(widget.movie);
                             },
                             icon: Icon(

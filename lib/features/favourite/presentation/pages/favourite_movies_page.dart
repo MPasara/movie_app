@@ -5,17 +5,31 @@ import 'package:movie_app/common/presentation/build_context_extensions.dart';
 import 'package:movie_app/common/presentation/widgets/app_drawer.dart';
 import 'package:movie_app/common/presentation/widgets/movie_app_bar.dart';
 import 'package:movie_app/features/favourite/domain/notifiers/favourite_movies_notifier.dart';
+import 'package:movie_app/features/popular/presentation/widgets/popular_movie_list_tile.dart';
 import 'package:movie_app/generated/l10n.dart';
 
-class FavouriteMoviePage extends ConsumerWidget {
+class FavouriteMoviePage extends ConsumerStatefulWidget {
   static const routeName = '/users';
 
-  FavouriteMoviePage({super.key});
-  final GlobalKey<ScaffoldState> _globalKey = GlobalKey();
+  const FavouriteMoviePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final favouriteMovies = ref.watch(favouriteMoviesProvider);
+  ConsumerState<FavouriteMoviePage> createState() => _FavouriteMoviePageState();
+}
+
+class _FavouriteMoviePageState extends ConsumerState<FavouriteMoviePage> {
+  final GlobalKey<ScaffoldState> _globalKey = GlobalKey();
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final favouriteMovies = ref.watch(favouriteMoviesNotifierProvider);
 
     return Scaffold(
       key: _globalKey,
@@ -34,20 +48,22 @@ class FavouriteMoviePage extends ConsumerWidget {
               ],
             ),
           ),
-          ListView.builder(
-            itemCount: favouriteMovies.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              final movieId = favouriteMovies.keys.elementAt(
-                index,
-              );
-              return ListTile(
-                title: Text(
-                  'Movie ID: $movieId',
-                  style: TextStyle(color: context.appColors.defaultColor),
-                ),
-              );
-            },
+          Expanded(
+            child: RawScrollbar(
+              padding: const EdgeInsets.only(right: 4),
+              thumbColor: context.appColors.defaultColor!.withOpacity(0.8),
+              controller: _scrollController,
+              thickness: 3,
+              child: ListView.builder(
+                padding: const EdgeInsets.only(top: 20),
+                itemCount: favouriteMovies.length,
+                itemBuilder: (context, index) {
+                  // Get the current movie from the map or list
+                  final movie = favouriteMovies.values.elementAt(index);
+                  return PopularMovieListTile(movie: movie);
+                },
+              ),
+            ),
           ),
         ],
       ),

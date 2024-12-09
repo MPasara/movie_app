@@ -8,6 +8,7 @@ import 'package:movie_app/features/popular/presentation/movie_details_page.dart'
 import '../../../common/domain/utils/string_extension.dart';
 import '../../../example/example_routes.dart';
 import '../../../features/directories/presentation/directories_page.dart';
+import '../../../features/favourite/presentation/pages/favourite_movies_page.dart';
 import '../../../features/home/presentation/home_page.dart';
 import '../../../features/login/presentation/login_page.dart';
 import '../../../features/notifications/presentation/all_notifications_page.dart';
@@ -17,7 +18,6 @@ import '../../../features/popular/presentation/popular_movies_page.dart';
 import '../../../features/register/presentation/register_page.dart';
 import '../../../features/reset_password/presentation/reset_password_page.dart';
 import '../../../features/users/presentation/user_details_page.dart';
-import '../../../features/favourite/presentation/pages/favourite_movies_page.dart';
 import 'go_router_state_extension.dart';
 
 List<RouteBase> getRoutes({
@@ -95,6 +95,14 @@ RouteBase _statefulShellRoute({
               path: FavouriteMoviePage.routeName,
               builder: (context, state) => FavouriteMoviePage(),
               routes: [
+                GoRoute(
+                  path: MovieDetailsPage.routeName.removeLeadingSlash,
+                  parentNavigatorKey: rootNavigatorKey,
+                  builder: (context, state) {
+                    final movie = state.extra as Movie;
+                    return MovieDetailsPage(movie: movie);
+                  },
+                ),
                 GoRoute(
                   path: UserDetailsPage.routeName.removeLeadingSlash,
                   builder: (context, state) => UserDetailsPage(

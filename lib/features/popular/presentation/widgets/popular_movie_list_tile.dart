@@ -35,7 +35,7 @@ class _PopularMovieListTileState extends ConsumerState<PopularMovieListTile> {
   @override
   Widget build(BuildContext context) {
     final isFavourite =
-        ref.watch(favouriteMoviesProvider).containsKey(widget.movie.id);
+        ref.watch(favouriteMoviesNotifierProvider).containsKey(widget.movie.id);
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: InkWell(
@@ -81,7 +81,8 @@ class _PopularMovieListTileState extends ConsumerState<PopularMovieListTile> {
                             onPressed: () {
                               HapticFeedback.mediumImpact();
                               ref
-                                  .read(favouriteMoviesProvider.notifier)
+                                  .read(
+                                      favouriteMoviesNotifierProvider.notifier)
                                   .toggleFavourite(widget.movie);
                             },
                             icon: Icon(
