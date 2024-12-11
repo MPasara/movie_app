@@ -2,7 +2,7 @@
 
 import 'package:dio/dio.dart';
 import 'package:movie_app/common/data/genre_response.dart';
-import 'package:movie_app/common/utils/api_path_constants.dart';
+import 'package:movie_app/common/utils/constants/api_path_constants.dart';
 import 'package:movie_app/features/popular/data/models/movie_response.dart';
 import 'package:retrofit/retrofit.dart';
 

@@ -8,7 +8,7 @@ import 'package:q_architecture/q_architecture.dart';
 final popularMoviesNotifierProvider =
     NotifierProvider<PopularMoviesNotifier, BaseState<MovieWrapper>>(
   () => PopularMoviesNotifier(),
-  name: 'PopularMoviesNotifier',
+  name: 'Popular movies notifier',
 );
 
 class PopularMoviesNotifier extends Notifier<BaseState<MovieWrapper>> {

@@ -7,7 +7,6 @@ class Movie extends Equatable {
   final String posterImagePath;
   final String? backdropImagePath;
   final double voteAverage;
-  final bool isFavourite;
   final List<String> genres;
 
   const Movie({
@@ -17,7 +16,6 @@ class Movie extends Equatable {
     required this.posterImagePath,
     required this.backdropImagePath,
     required this.voteAverage,
-    this.isFavourite = false,
     required this.genres,
   });
 
@@ -28,7 +26,6 @@ class Movie extends Equatable {
     String? posterImagePath,
     String? backdropImagePath,
     double? voteAverage,
-    bool? isFavourite,
     List<String>? genres,
   }) =>
       Movie(
@@ -38,9 +35,32 @@ class Movie extends Equatable {
         posterImagePath: posterImagePath ?? this.posterImagePath,
         backdropImagePath: backdropImagePath ?? this.backdropImagePath,
         voteAverage: voteAverage ?? this.voteAverage,
-        isFavourite: isFavourite ?? this.isFavourite,
         genres: genres ?? this.genres,
       );
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'description': description,
+      'posterImagePath': posterImagePath,
+      'backdropImagePath': backdropImagePath,
+      'voteAverage': voteAverage,
+      'genres': genres,
+    };
+  }
+
+  factory Movie.fromJson(Map<String, dynamic> json) {
+    return Movie(
+      id: json['id'],
+      title: json['title'],
+      description: json['description'],
+      posterImagePath: json['posterImagePath'],
+      backdropImagePath: json['backdropImagePath'],
+      voteAverage: json['voteAverage'],
+      genres: List<String>.from(json['genres']),
+    );
+  }
 
   @override
   List<Object?> get props => [
@@ -50,7 +70,6 @@ class Movie extends Equatable {
         posterImagePath,
         backdropImagePath,
         voteAverage,
-        isFavourite,
         genres,
       ];
 }

@@ -52,7 +52,6 @@ class _PopularMoviesListWidgetState
           displacement: 12,
           child: Stack(
             children: [
-              // Your ListView
               ListView.builder(
                 controller: widget.scrollController,
                 padding: const EdgeInsets.only(top: 16),
