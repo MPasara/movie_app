@@ -31,7 +31,7 @@ class MovieResponse {
   final int? voteCount;
 
   MovieResponse({
-     this.adult,
+    this.adult,
     this.backdropPath,
     required this.genreIds,
     required this.id,

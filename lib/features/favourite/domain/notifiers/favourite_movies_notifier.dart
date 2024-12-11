@@ -11,8 +11,11 @@ final favouriteMoviesNotifierProvider =
 );
 
 class FavouriteMoviesNotifier extends SimpleNotifier<Map<int, Movie>> {
+  late FavouriteMoviesRepository _favouriteMoviesRepository;
+
   @override
   Map<int, Movie> prepareForBuild() {
+    _favouriteMoviesRepository = ref.watch(favouriteMoviesRepositoryProvider);
     loadFavourites();
     return {};
   }
@@ -21,20 +24,19 @@ class FavouriteMoviesNotifier extends SimpleNotifier<Map<int, Movie>> {
     throttle(
       () async {
         if (state.containsKey(movie.id)) {
-          await ref.read(databaseRepositoryProvider).unfavouriteMovie(movie);
+          await _favouriteMoviesRepository.unfavouriteMovie(movie);
           state = {...state}..remove(movie.id);
         } else {
-          await ref.read(databaseRepositoryProvider).favouriteMovie(movie);
+          await _favouriteMoviesRepository.favouriteMovie(movie);
           state = {...state}..putIfAbsent(movie.id, () => movie);
         }
       },
-      duration: const Duration(milliseconds: 500),
     );
   }
 
   Future<void> loadFavourites() async {
     final eitherFailureOrFavouriteMovies =
-        await ref.read(databaseRepositoryProvider).loadFavouriteMovies();
+        await _favouriteMoviesRepository.loadFavouriteMovies();
 
     eitherFailureOrFavouriteMovies.fold(
       (failure) {
