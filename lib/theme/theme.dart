@@ -11,6 +11,8 @@ final secondaryTheme = _getTheme(
     background: Color(0xFF0E1324),
     bottomNavBarBackground: Color(0xFF010510),
     genreTagBackground: Color(0xffec9b3e),
+    errorRed: Colors.redAccent,
+    successGreen: Colors.greenAccent,
   ),
 );
 
@@ -21,6 +23,8 @@ final primaryTheme = _getTheme(
     background: Color(0xFFFFFFFF),
     bottomNavBarBackground: Color(0xFFF8F8FA),
     genreTagBackground: Color(0xff253899),
+    errorRed: Colors.redAccent,
+    successGreen: Colors.greenAccent,
   ),
 );
 
