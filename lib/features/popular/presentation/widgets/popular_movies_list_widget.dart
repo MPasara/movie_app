@@ -34,9 +34,6 @@ class _PopularMoviesListWidgetState
       _ => false,
     };
 
-    final itemCount =
-        isLoading ? widget.movies.length + 1 : widget.movies.length;
-
     super.build(context);
 
     return Expanded(
@@ -56,7 +53,7 @@ class _PopularMoviesListWidgetState
                 controller: widget.scrollController,
                 padding: const EdgeInsets.only(top: 16),
                 shrinkWrap: true,
-                itemCount: itemCount,
+                itemCount: widget.movies.length,
                 itemBuilder: (context, index) {
                   final movie = widget.movies[index];
                   return PopularMovieListTile(movie: movie);

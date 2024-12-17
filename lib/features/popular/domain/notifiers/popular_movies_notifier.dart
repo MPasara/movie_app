@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:movie_app/features/popular/data/repositories/movie_repository.dart';
 import 'package:movie_app/features/popular/domain/entities/movie_wrapper.dart';
@@ -7,7 +9,7 @@ import 'package:q_architecture/q_architecture.dart';
 
 final popularMoviesNotifierProvider =
     NotifierProvider<PopularMoviesNotifier, BaseState<MovieWrapper>>(
-  () => PopularMoviesNotifier(),
+  PopularMoviesNotifier.new,
   name: 'Popular movies notifier',
 );
 
@@ -61,6 +63,13 @@ class PopularMoviesNotifier extends Notifier<BaseState<MovieWrapper>> {
           case BaseData():
             break;
           default:
+            Fluttertoast.showToast(
+              msg: failure.title,
+              toastLength: Toast.LENGTH_LONG,
+              backgroundColor: Colors.redAccent,
+              gravity: ToastGravity.SNACKBAR,
+              fontSize: 16,
+            );
             state = BaseState.error(
               Failure.generic(
                 title: S.current.fetch_movies_failed,

@@ -2,7 +2,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:movie_app/common/utils/constants/sembast_constants.dart';
 import 'package:movie_app/features/favourite/data/repositories/database_service.dart';
 import 'package:movie_app/features/popular/data/models/movie_response.dart';
-import 'package:movie_app/features/popular/domain/entities/movie.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast_io.dart';
@@ -15,7 +14,7 @@ final databaseServiceProvider = Provider<DatabaseService>(
 class DatabaseServiceImpl implements DatabaseService {
   final _storeRef =
       intMapStoreFactory.store(SembastConstants.favouriteMoviesStore);
-  Database? _database;
+  late final Database _database;
 
   @override
   Future<void> initDatabase() async {
@@ -28,25 +27,25 @@ class DatabaseServiceImpl implements DatabaseService {
   @override
   Future<void> favouriteMovie(MovieResponse movie) async {
     await _storeRef.record(movie.id).put(
-          _database!,
+          _database,
           movie.toJson(),
         );
   }
 
   @override
-  Future<void> unfavouriteMovie(Movie movie) async =>
-      _storeRef.record(movie.id).delete(_database!);
+  Future<void> unfavouriteMovie(int movieId) async =>
+      _storeRef.record(movieId).delete(_database);
 
   @override
   Future<bool> isMovieFavourite(int movieId) async {
-    final record = await _storeRef.record(movieId).get(_database!);
+    final record = await _storeRef.record(movieId).get(_database);
     return record != null;
   }
 
   @override
   Future<List<MovieResponse>> getFavouriteMovies() async {
     final favouriteMovies = <MovieResponse>[];
-    final records = await _storeRef.find(_database!);
+    final records = await _storeRef.find(_database);
 
     for (final record in records) {
       final movieJson = record.value;

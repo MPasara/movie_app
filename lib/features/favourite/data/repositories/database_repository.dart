@@ -20,7 +20,7 @@ final favouriteMoviesRepositoryProvider = Provider<FavouriteMoviesRepository>(
 
 abstract interface class FavouriteMoviesRepository {
   EitherFailureOr<void> favouriteMovie(Movie movie);
-  EitherFailureOr<void> unfavouriteMovie(Movie movie);
+  EitherFailureOr<void> unfavouriteMovie(int movieId);
   EitherFailureOr<List<Movie>> loadFavouriteMovies();
 }
 
@@ -57,8 +57,8 @@ class FavouriteMoviesRepositoryImpl implements FavouriteMoviesRepository {
 
   @override
   EitherFailureOr<void> favouriteMovie(Movie movie) async {
-    final movieResponse = _twoWayEntityMapper.requestMapper(movie);
     try {
+      final movieResponse = _twoWayEntityMapper.requestMapper(movie);
       await _databaseService.favouriteMovie(movieResponse);
       return const Right(null);
     } catch (e, st) {
@@ -73,9 +73,9 @@ class FavouriteMoviesRepositoryImpl implements FavouriteMoviesRepository {
   }
 
   @override
-  EitherFailureOr<void> unfavouriteMovie(Movie movie) async {
+  EitherFailureOr<void> unfavouriteMovie(int movieId) async {
     try {
-      await _databaseService.unfavouriteMovie(movie);
+      await _databaseService.unfavouriteMovie(movieId);
       return const Right(null);
     } catch (e, st) {
       return Left(

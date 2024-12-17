@@ -149,6 +149,26 @@ class S {
       args: [],
     );
   }
+
+  /// `🍿 No favourites yet?\n Your top picks will appear here soon! 🎥✨`
+  String get no_favourite_movies {
+    return Intl.message(
+      '🍿 No favourites yet?\n Your top picks will appear here soon! 🎥✨',
+      name: 'no_favourite_movies',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Try again`
+  String get try_again {
+    return Intl.message(
+      'Try again',
+      name: 'try_again',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

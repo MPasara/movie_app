@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:movie_app/common/domain/router/navigation_extensions.dart';
 import 'package:movie_app/common/presentation/build_context_extensions.dart';
 import 'package:movie_app/common/presentation/image_assets.dart';
+import 'package:movie_app/common/presentation/spacing.dart';
 import 'package:movie_app/common/presentation/widgets/genre_chip.dart';
 import 'package:movie_app/common/utils/constants/constants.dart';
 import 'package:movie_app/features/favourite/domain/notifiers/favourite_movies_notifier.dart';
@@ -105,7 +106,7 @@ class _PopularMovieListTileState extends ConsumerState<PopularMovieListTile> {
                           SvgPicture.asset(
                             ImageAssets.star,
                           ),
-                          const SizedBox(width: 4),
+                          spacing4,
                           Text(
                             S.of(context).movie_rating(
                                   widget.movie.voteAverage.toStringAsFixed(1),

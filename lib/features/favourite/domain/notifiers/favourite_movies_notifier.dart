@@ -1,5 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:loggy/loggy.dart';
 import 'package:movie_app/features/favourite/data/repositories/database_repository.dart';
 import 'package:movie_app/features/popular/domain/entities/movie.dart';
 import 'package:q_architecture/q_architecture.dart';
@@ -24,11 +25,47 @@ class FavouriteMoviesNotifier extends SimpleNotifier<Map<int, Movie>> {
     throttle(
       () async {
         if (state.containsKey(movie.id)) {
-          await _favouriteMoviesRepository.unfavouriteMovie(movie);
-          state = {...state}..remove(movie.id);
+          final eitherFailureOrUnfavourite =
+              await _favouriteMoviesRepository.unfavouriteMovie(movie.id);
+          eitherFailureOrUnfavourite.fold(
+            (failure) {
+              Fluttertoast.showToast(
+                msg: failure.title,
+                toastLength: Toast.LENGTH_LONG,
+                backgroundColor: Colors.redAccent,
+                gravity: ToastGravity.SNACKBAR,
+                fontSize: 16,
+              );
+            },
+            (_) {
+              state = {...state}..remove(movie.id);
+            },
+          );
         } else {
-          await _favouriteMoviesRepository.favouriteMovie(movie);
-          state = {...state}..putIfAbsent(movie.id, () => movie);
+          final eitherFailureOrFavourite =
+              await _favouriteMoviesRepository.favouriteMovie(movie);
+          eitherFailureOrFavourite.fold(
+            (failure) {
+              Fluttertoast.showToast(
+                msg: failure.title,
+                toastLength: Toast.LENGTH_LONG,
+                backgroundColor: Colors.redAccent,
+                gravity: ToastGravity.SNACKBAR,
+                fontSize: 16,
+              );
+            },
+            (_) {
+              Fluttertoast.showToast(
+                textColor: Colors.black,
+                msg: 'Movie added to favourites',
+                toastLength: Toast.LENGTH_LONG,
+                backgroundColor: Colors.greenAccent,
+                gravity: ToastGravity.SNACKBAR,
+                fontSize: 16,
+              );
+              state = {...state}..putIfAbsent(movie.id, () => movie);
+            },
+          );
         }
       },
     );
@@ -40,7 +77,13 @@ class FavouriteMoviesNotifier extends SimpleNotifier<Map<int, Movie>> {
 
     eitherFailureOrFavouriteMovies.fold(
       (failure) {
-        logDebug('Failed to load favourite movies: $failure');
+        Fluttertoast.showToast(
+          msg: failure.title,
+          toastLength: Toast.LENGTH_LONG,
+          backgroundColor: Colors.redAccent,
+          gravity: ToastGravity.SNACKBAR,
+          fontSize: 16,
+        );
       },
       (favMovies) {
         final favouriteMoviesMap = Map<int, Movie>.fromEntries(

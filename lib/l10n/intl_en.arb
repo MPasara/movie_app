@@ -9,5 +9,7 @@
     "description" : "Description",
     "fetch_genres_failed" : "Fetch genres failed",
     "fetch_movies_failed" : "Fetch movies failed",
-    "unknown_genre" : "Unknown"
+    "unknown_genre" : "Unknown",
+    "no_favourite_movies" : "🍿 No favourites yet?\n Your top picks will appear here soon! 🎥✨",
+    "try_again" : "Try again"
 }

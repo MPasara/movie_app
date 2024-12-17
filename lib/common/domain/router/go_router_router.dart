@@ -43,7 +43,7 @@ class GoRouterRouter extends BaseRouter {
       (routerDelegate as GoRouterDelegate).currentConfiguration.uri;
 
   @override
-  bool routeExists(String route) {
+  bool routeExists(Uri route) {
     try {
       return (routeInformationParser as GoRouteInformationParser)
           .configuration

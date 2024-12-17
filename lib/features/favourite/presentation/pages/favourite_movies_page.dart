@@ -43,28 +43,39 @@ class _FavouriteMoviePageState extends ConsumerState<FavouriteMoviePage> {
               children: [
                 Text(
                   S.of(context).favourites,
-                  style: context.appTextStyles.bold!.copyWith(fontSize: 22),
+                  style: context.appTextStyles.pageHeading,
                 ),
               ],
             ),
           ),
-          Expanded(
-            child: RawScrollbar(
-              padding: const EdgeInsets.only(right: 4),
-              thumbColor: context.appColors.defaultColor!.withOpacity(0.8),
-              controller: _scrollController,
-              thickness: 3,
-              child: ListView.builder(
-                padding: const EdgeInsets.only(top: 20),
-                itemCount: favouriteMovies.length,
-                itemBuilder: (context, index) {
-                  // Get the current movie from the map or list
-                  final movie = favouriteMovies.values.elementAt(index);
-                  return PopularMovieListTile(movie: movie);
-                },
-              ),
-            ),
-          ),
+          favouriteMovies.isEmpty
+              ? Expanded(
+                  child: Center(
+                    child: Text(
+                      S.of(context).no_favourite_movies,
+                      style: context.appTextStyles.movieCardTitle,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                )
+              : Expanded(
+                  child: RawScrollbar(
+                    padding: const EdgeInsets.only(right: 4),
+                    thumbColor:
+                        context.appColors.defaultColor!.withOpacity(0.8),
+                    controller: _scrollController,
+                    thickness: 3,
+                    child: ListView.builder(
+                      padding: const EdgeInsets.only(top: 20),
+                      itemCount: favouriteMovies.length,
+                      itemBuilder: (context, index) {
+                        // Get the current movie from the map or list
+                        final movie = favouriteMovies.values.elementAt(index);
+                        return PopularMovieListTile(movie: movie);
+                      },
+                    ),
+                  ),
+                ),
         ],
       ),
     );
