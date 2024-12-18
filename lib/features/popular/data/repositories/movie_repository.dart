@@ -1,8 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:movie_app/common/data/api_client.dart';
 import 'package:movie_app/common/data/providers.dart';
-import 'package:movie_app/common/utils/constants.dart';
+import 'package:movie_app/common/utils/constants/constants.dart';
 import 'package:movie_app/features/popular/data/mappers/movie_wrapper_entity_mapper.dart';
 import 'package:movie_app/features/popular/data/models/movie_response.dart';
 import 'package:movie_app/features/popular/data/repositories/genre_repository.dart';
@@ -63,7 +64,7 @@ class MovieRepositoryImpl implements MovieRepository {
             }
           },
         );
-      } catch (e, st) {
+      } on DioException catch (e, st) {
         return Left(
           Failure(
             title: S.current.fetch_genres_failed,

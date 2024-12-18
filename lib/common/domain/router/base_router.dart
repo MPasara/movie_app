@@ -27,5 +27,5 @@ abstract class BaseRouter {
 
   Uri get currentLocationUri;
 
-  bool routeExists(String route);
+  bool routeExists(Uri route);
 }

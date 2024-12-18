@@ -1,4 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:movie_app/common/domain/providers/failure_provider.dart';
 import 'package:movie_app/features/popular/data/repositories/movie_repository.dart';
 import 'package:movie_app/features/popular/domain/entities/movie_wrapper.dart';
 import 'package:movie_app/generated/l10n.dart';
@@ -7,8 +8,8 @@ import 'package:q_architecture/q_architecture.dart';
 
 final popularMoviesNotifierProvider =
     NotifierProvider<PopularMoviesNotifier, BaseState<MovieWrapper>>(
-  () => PopularMoviesNotifier(),
-  name: 'PopularMoviesNotifier',
+  PopularMoviesNotifier.new,
+  name: 'Popular movies notifier',
 );
 
 class PopularMoviesNotifier extends Notifier<BaseState<MovieWrapper>> {
@@ -68,6 +69,7 @@ class PopularMoviesNotifier extends Notifier<BaseState<MovieWrapper>> {
                 stackTrace: failure.stackTrace,
               ),
             );
+            ref.read(failureProvider.notifier).state = failure;
         }
       },
       (movieWrapper) {

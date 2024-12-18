@@ -32,9 +32,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Fetch movies failed"),
         "movie_rating": m0,
         "movies": MessageLookupByLibrary.simpleMessage("Movies"),
+        "no_favourite_movies": MessageLookupByLibrary.simpleMessage(
+            "🍿 No favourites yet?\n Your top picks will appear here soon! 🎥✨"),
         "permission_denied": MessageLookupByLibrary.simpleMessage(
             "Permission has been denied, please enable it in device settings"),
         "popular": MessageLookupByLibrary.simpleMessage("Popular"),
+        "try_again": MessageLookupByLibrary.simpleMessage("Try again"),
         "unknown_error_occurred":
             MessageLookupByLibrary.simpleMessage("Unknown error occurred"),
         "unknown_genre": MessageLookupByLibrary.simpleMessage("Unknown")

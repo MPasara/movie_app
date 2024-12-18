@@ -101,8 +101,9 @@ class AuthNotifier extends Notifier<AuthState> implements Listenable {
       return null;
     }
 
-    final routeExists =
-        ref.read(baseRouterProvider).routeExists(goRouterState.matchedLocation);
+    final routeExists = ref
+        .read(baseRouterProvider)
+        .routeExists(Uri.parse(goRouterState.matchedLocation));
     final loginRoutes =
         goRouterState.matchedLocation.startsWith(LoginPage.routeName);
     if (isLoggedIn && routeExists) {
