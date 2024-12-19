@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:movie_app/common/data/api_client.dart';
@@ -64,7 +63,7 @@ class MovieRepositoryImpl implements MovieRepository {
             }
           },
         );
-      } on DioException catch (e, st) {
+      } catch (e, st) {
         return Left(
           Failure(
             title: S.current.fetch_genres_failed,

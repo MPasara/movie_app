@@ -169,6 +169,46 @@ class S {
       args: [],
     );
   }
+
+  /// `{movieName} added to favourites`
+  String movie_added_to_favourites(Object movieName) {
+    return Intl.message(
+      '$movieName added to favourites',
+      name: 'movie_added_to_favourites',
+      desc: '',
+      args: [movieName],
+    );
+  }
+
+  /// `Favourite movies failed`
+  String get favourite_movies_failed {
+    return Intl.message(
+      'Favourite movies failed',
+      name: 'favourite_movies_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unfavourite movies failed`
+  String get unfavourite_movies_failed {
+    return Intl.message(
+      'Unfavourite movies failed',
+      name: 'unfavourite_movies_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Load favourite movies failed`
+  String get load_favourite_movies_failed {
+    return Intl.message(
+      'Load favourite movies failed',
+      name: 'load_favourite_movies_failed',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

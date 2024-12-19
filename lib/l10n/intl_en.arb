@@ -11,5 +11,9 @@
     "fetch_movies_failed" : "Fetch movies failed",
     "unknown_genre" : "Unknown",
     "no_favourite_movies" : "🍿 No favourites yet?\n Your top picks will appear here soon! 🎥✨",
-    "try_again" : "Try again"
+    "try_again" : "Try again",
+    "movie_added_to_favourites" : "{movieName} added to favourites",
+    "favourite_movies_failed" : "Favourite movies failed",
+    "unfavourite_movies_failed" : "Unfavourite movies failed",
+    "load_favourite_movies_failed" : "Load favourite movies failed"
 }

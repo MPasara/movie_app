@@ -3,6 +3,7 @@ import 'package:movie_app/common/domain/providers/failure_provider.dart';
 import 'package:movie_app/common/domain/providers/success_provider.dart';
 import 'package:movie_app/features/favourite/data/repositories/database_repository.dart';
 import 'package:movie_app/features/popular/domain/entities/movie.dart';
+import 'package:movie_app/generated/l10n.dart';
 import 'package:q_architecture/q_architecture.dart';
 
 final favouriteMoviesNotifierProvider =
@@ -40,7 +41,7 @@ class FavouriteMoviesNotifier extends SimpleNotifier<Map<int, Movie>> {
             (failure) => ref.read(failureProvider.notifier).state = failure,
             (_) {
               ref.read(successProvider.notifier).state =
-                  '${movie.title} added to favourites';
+                  S.current.movie_added_to_favourites(movie.title);
               state = {...state}..putIfAbsent(movie.id, () => movie);
             },
           );

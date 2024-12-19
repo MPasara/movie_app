@@ -38,7 +38,7 @@ ThemeData _getTheme({required AppColors appColors}) {
     scaffoldBackgroundColor: appColors.background,
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: appColors.defaultColor,
-      selectionColor: appColors.defaultColor?.withOpacity(0.2),
+      selectionColor: appColors.defaultColor?.withValues(alpha: 0.2),
       selectionHandleColor: appColors.defaultColor,
     ),
     extensions: [

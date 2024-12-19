@@ -62,7 +62,7 @@ class _FavouriteMoviePageState extends ConsumerState<FavouriteMoviePage> {
                   child: RawScrollbar(
                     padding: const EdgeInsets.only(right: 4),
                     thumbColor:
-                        context.appColors.defaultColor!.withOpacity(0.8),
+                        context.appColors.defaultColor!.withValues(alpha: 0.8),
                     controller: _scrollController,
                     thickness: 3,
                     child: ListView.builder(

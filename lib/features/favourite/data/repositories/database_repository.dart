@@ -6,6 +6,7 @@ import 'package:movie_app/features/favourite/data/repositories/database_service_
 import 'package:movie_app/features/popular/data/mappers/movie_entity_mapper.dart';
 import 'package:movie_app/features/popular/data/models/movie_response.dart';
 import 'package:movie_app/features/popular/domain/entities/movie.dart';
+import 'package:movie_app/generated/l10n.dart';
 import 'package:q_architecture/q_architecture.dart';
 
 final favouriteMoviesRepositoryProvider = Provider<FavouriteMoviesRepository>(
@@ -47,7 +48,7 @@ class FavouriteMoviesRepositoryImpl implements FavouriteMoviesRepository {
     } catch (e, st) {
       return Left(
         Failure(
-          title: 'Load favourite movies failed',
+          title: S.current.load_favourite_movies_failed,
           error: e,
           stackTrace: st,
         ),
@@ -64,7 +65,7 @@ class FavouriteMoviesRepositoryImpl implements FavouriteMoviesRepository {
     } catch (e, st) {
       return Left(
         Failure(
-          title: 'Favourite movie failed',
+          title: S.current.favourite_movies_failed,
           error: e,
           stackTrace: st,
         ),
@@ -80,7 +81,7 @@ class FavouriteMoviesRepositoryImpl implements FavouriteMoviesRepository {
     } catch (e, st) {
       return Left(
         Failure(
-          title: 'Unfavourite movie failed',
+          title: S.current.unfavourite_movies_failed,
           error: e,
           stackTrace: st,
         ),

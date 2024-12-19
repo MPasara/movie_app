@@ -39,7 +39,7 @@ class _PopularMoviesListWidgetState
     return Expanded(
       child: RawScrollbar(
         padding: const EdgeInsets.only(right: 4),
-        thumbColor: context.appColors.defaultColor!.withOpacity(0.8),
+        thumbColor: context.appColors.defaultColor!.withValues(alpha: 0.8),
         controller: widget.scrollController,
         thickness: 3,
         child: RefreshIndicator(
@@ -62,7 +62,7 @@ class _PopularMoviesListWidgetState
               if (isLoading)
                 Positioned.fill(
                   child: Container(
-                    color: Colors.black.withOpacity(0.5),
+                    color: Colors.black.withValues(alpha: 0.5),
                     child: const Center(
                       child: CircularProgressIndicator(),
                     ),
