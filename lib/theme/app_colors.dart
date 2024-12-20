@@ -6,6 +6,8 @@ final class AppColors extends ThemeExtension<AppColors> {
   final Color? background;
   final Color? genreTagBackground;
   final Color? bottomNavBarBackground;
+  final Color? errorRed;
+  final Color? successGreen;
 
   const AppColors({
     required this.defaultColor,
@@ -13,6 +15,8 @@ final class AppColors extends ThemeExtension<AppColors> {
     required this.background,
     required this.bottomNavBarBackground,
     required this.genreTagBackground,
+    required this.errorRed,
+    required this.successGreen,
   });
 
   @override
@@ -22,6 +26,8 @@ final class AppColors extends ThemeExtension<AppColors> {
     Color? background,
     Color? genreTagBackground,
     Color? bottomNavBarBackground,
+    Color? errorRed,
+    Color? successGreen,
   }) {
     return AppColors(
       defaultColor: defaultColor ?? this.defaultColor,
@@ -30,6 +36,8 @@ final class AppColors extends ThemeExtension<AppColors> {
       genreTagBackground: genreTagBackground ?? this.genreTagBackground,
       bottomNavBarBackground:
           bottomNavBarBackground ?? this.bottomNavBarBackground,
+      errorRed: errorRed ?? this.errorRed,
+      successGreen: successGreen ?? this.successGreen,
     );
   }
 
@@ -46,6 +54,8 @@ final class AppColors extends ThemeExtension<AppColors> {
           Color.lerp(genreTagBackground, other.genreTagBackground, t),
       bottomNavBarBackground:
           Color.lerp(bottomNavBarBackground, other.bottomNavBarBackground, t),
+      errorRed: Color.lerp(errorRed, other.errorRed, t),
+      successGreen: Color.lerp(successGreen, other.successGreen, t),
     );
   }
 }

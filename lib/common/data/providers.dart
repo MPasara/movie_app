@@ -3,7 +3,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_loggy_dio/flutter_loggy_dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:movie_app/common/utils/custom_interceptor.dart';
+import 'package:movie_app/common/utils/header_interceptor.dart';
 
 import '../../main/app_environment.dart';
 import 'api_client.dart';
@@ -22,7 +22,7 @@ final dioProvider = Provider.family<Dio, String>(
   )..interceptors.addAll(
       [
         LoggyDioInterceptor(requestBody: true, requestHeader: true),
-        CustomInterceptor(),
+        HeaderInterceptor(),
       ],
     ),
 );

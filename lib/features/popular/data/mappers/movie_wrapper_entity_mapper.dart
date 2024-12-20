@@ -7,13 +7,13 @@ import 'package:q_architecture/q_architecture.dart';
 final movieWrapperEntityMapper =
     Provider<EntityMapper<MovieWrapper, MovieResponseWrapper>>(
   (ref) => (response) {
-    final movieMapper = ref.read(movieEntityMapperProvider);
+    final movieMapper = ref.read(twoWayMovieEntityMapperProvider);
     return MovieWrapper(
       totalPages: response.totalPages,
       currentPage: response.page,
       movies: response.results
           .map(
-            (movieResponse) => movieMapper(movieResponse),
+            (movieResponse) => movieMapper.responseMapper(movieResponse),
           )
           .toList(growable: true),
     );
