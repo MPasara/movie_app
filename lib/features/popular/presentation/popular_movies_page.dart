@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:movie_app/common/presentation/build_context_extensions.dart';
+import 'package:movie_app/common/presentation/spacing.dart';
 import 'package:movie_app/common/presentation/widgets/app_drawer.dart';
 import 'package:movie_app/common/presentation/widgets/movie_app_bar.dart';
 import 'package:movie_app/features/popular/domain/notifiers/popular_movies_notifier.dart';
@@ -53,11 +54,28 @@ class _PopularMoviesPageState extends ConsumerState<PopularMoviesPage> {
       body: switch (state) {
         BaseInitial() => const SizedBox(),
         BaseLoading() => const Center(child: CircularProgressIndicator()),
-        BaseError(failure: final failure) => Center(
-            child: Text(
-              failure.toString(),
-              style: TextStyle(color: context.appColors.defaultColor),
-            ),
+        BaseError(failure: final failure) => Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: Text(
+                  failure.title,
+                  style: TextStyle(color: context.appColors.defaultColor),
+                ),
+              ),
+              spacing14,
+              ElevatedButton(
+                onPressed: () {
+                  ref
+                      .read(popularMoviesNotifierProvider.notifier)
+                      .getPopularMovies(1);
+                },
+                child: Text(
+                  S.of(context).try_again,
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+            ],
           ),
         BaseData(data: final movieWrapper) => Column(
             children: [
@@ -67,7 +85,7 @@ class _PopularMoviesPageState extends ConsumerState<PopularMoviesPage> {
                   children: [
                     Text(
                       S.of(context).popular,
-                      style: context.appTextStyles.bold!.copyWith(fontSize: 22),
+                      style: context.appTextStyles.pageHeading,
                     ),
                   ],
                 ),

@@ -8,6 +8,7 @@ import 'package:movie_app/features/popular/presentation/movie_details_page.dart'
 import '../../../common/domain/utils/string_extension.dart';
 import '../../../example/example_routes.dart';
 import '../../../features/directories/presentation/directories_page.dart';
+import '../../../features/favourite/presentation/pages/favourite_movies_page.dart';
 import '../../../features/home/presentation/home_page.dart';
 import '../../../features/login/presentation/login_page.dart';
 import '../../../features/notifications/presentation/all_notifications_page.dart';
@@ -17,7 +18,6 @@ import '../../../features/popular/presentation/popular_movies_page.dart';
 import '../../../features/register/presentation/register_page.dart';
 import '../../../features/reset_password/presentation/reset_password_page.dart';
 import '../../../features/users/presentation/user_details_page.dart';
-import '../../../features/users/presentation/users_page.dart';
 import 'go_router_state_extension.dart';
 
 List<RouteBase> getRoutes({
@@ -92,9 +92,17 @@ RouteBase _statefulShellRoute({
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: UsersPage.routeName,
-              builder: (context, state) => UsersPage(),
+              path: FavouriteMoviePage.routeName,
+              builder: (context, state) => const FavouriteMoviePage(),
               routes: [
+                GoRoute(
+                  path: MovieDetailsPage.routeName.removeLeadingSlash,
+                  parentNavigatorKey: rootNavigatorKey,
+                  builder: (context, state) {
+                    final movie = state.extra as Movie;
+                    return MovieDetailsPage(movie: movie);
+                  },
+                ),
                 GoRoute(
                   path: UserDetailsPage.routeName.removeLeadingSlash,
                   builder: (context, state) => UserDetailsPage(
@@ -106,7 +114,7 @@ RouteBase _statefulShellRoute({
                       state.redirectIfPathParameterValid<int>(
                     pathParameterName:
                         UserDetailsPage.pathPattern.removeLeadingColon,
-                    redirectTo: UsersPage.routeName,
+                    redirectTo: FavouriteMoviePage.routeName,
                   ),
                 ),
               ],
@@ -208,8 +216,8 @@ RouteBase _shellRoute({required GlobalKey<NavigatorState> rootNavigatorKey}) =>
           ],
         ),
         GoRoute(
-          path: UsersPage.routeName,
-          builder: (context, state) => UsersPage(),
+          path: FavouriteMoviePage.routeName,
+          builder: (context, state) => const FavouriteMoviePage(),
           routes: [
             GoRoute(
               path: UserDetailsPage.routeName.removeLeadingSlash,
@@ -222,7 +230,7 @@ RouteBase _shellRoute({required GlobalKey<NavigatorState> rootNavigatorKey}) =>
                   state.redirectIfPathParameterValid<int>(
                 pathParameterName:
                     UserDetailsPage.pathPattern.removeLeadingColon,
-                redirectTo: UsersPage.routeName,
+                redirectTo: FavouriteMoviePage.routeName,
               ),
             ),
           ],

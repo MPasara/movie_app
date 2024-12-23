@@ -1,8 +1,12 @@
 // ignore_for_file: always_use_package_imports
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
+import 'package:movie_app/common/domain/providers/failure_provider.dart';
+import 'package:movie_app/common/domain/providers/success_provider.dart';
+import 'package:movie_app/common/presentation/build_context_extensions.dart';
 import 'package:q_architecture/q_architecture.dart';
 
 import '../domain/providers/base_router_provider.dart';
@@ -35,6 +39,31 @@ class _AppBaseWidgetState extends ConsumerState<AppBaseWidget> {
     // WidgetsBinding.instance.addPostFrameCallback.
     // final navigatorContext = ref.read(baseRouterProvider).navigatorContext;
     ref.globalNavigationListener();
+    ref.listen<Failure?>(failureProvider, (_, failure) {
+      if (failure == null) return;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Fluttertoast.showToast(
+          msg: failure.title,
+          toastLength: Toast.LENGTH_LONG,
+          backgroundColor: context.appColors.errorRed,
+          gravity: ToastGravity.SNACKBAR,
+          fontSize: 16,
+        );
+      });
+    });
+    ref.listen(successProvider, (_, message) {
+      if (message == null) return;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Fluttertoast.showToast(
+          textColor: Colors.black,
+          msg: message,
+          toastLength: Toast.LENGTH_LONG,
+          backgroundColor: context.appColors.successGreen,
+          gravity: ToastGravity.SNACKBAR,
+          fontSize: 16,
+        );
+      });
+    });
     return BaseWidget(
       onGlobalFailure: onGlobalFailure,
       onGlobalInfo: onGlobalInfo,
@@ -52,7 +81,7 @@ class _AppBaseWidgetState extends ConsumerState<AppBaseWidget> {
   }
 
   void onGlobalInfo(GlobalInfo globalInfo) {
-    logInfo(''' 
+    logInfo('''
         globalInfoStatus: ${globalInfo.globalInfoStatus}
         title: ${globalInfo.title}, 
         message: ${globalInfo.message},
