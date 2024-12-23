@@ -7,6 +7,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_loggy/flutter_loggy.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
+import 'package:movie_app/features/favourite/data/repositories/database_service_impl.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'common/domain/providers/base_router_provider.dart';
@@ -59,8 +60,8 @@ Future<void> mainCommon(AppEnvironment environment) async {
   }
 }
 
-final _appStartupProvider = FutureProvider((ref) {
-  // here you can initialize all async dependencies like Firebase, SharedPreferences, etc.
+final _appStartupProvider = FutureProvider((ref) async {
+  await ref.read(databaseServiceProvider).initDatabase();
 });
 
 class AppStartupWidget extends ConsumerWidget {
