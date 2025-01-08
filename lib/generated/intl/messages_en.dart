@@ -26,7 +26,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "appearance": MessageLookupByLibrary.simpleMessage("Appearance"),
+        "croatian": MessageLookupByLibrary.simpleMessage("Croatian"),
+        "dark": MessageLookupByLibrary.simpleMessage("Dark"),
         "description": MessageLookupByLibrary.simpleMessage("Description"),
+        "english": MessageLookupByLibrary.simpleMessage("English"),
         "favourite_movies_failed":
             MessageLookupByLibrary.simpleMessage("Favourite movies failed"),
         "favourites": MessageLookupByLibrary.simpleMessage("Favourites"),
@@ -34,6 +38,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Fetch genres failed"),
         "fetch_movies_failed":
             MessageLookupByLibrary.simpleMessage("Fetch movies failed"),
+        "general": MessageLookupByLibrary.simpleMessage("General"),
+        "language": MessageLookupByLibrary.simpleMessage("Language"),
+        "light": MessageLookupByLibrary.simpleMessage("Light"),
         "load_favourite_movies_failed": MessageLookupByLibrary.simpleMessage(
             "Load favourite movies failed"),
         "movie_added_to_favourites": m0,
@@ -44,11 +51,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "permission_denied": MessageLookupByLibrary.simpleMessage(
             "Permission has been denied, please enable it in device settings"),
         "popular": MessageLookupByLibrary.simpleMessage("Popular"),
+        "spanish": MessageLookupByLibrary.simpleMessage("Spanish"),
+        "system": MessageLookupByLibrary.simpleMessage("System"),
         "try_again": MessageLookupByLibrary.simpleMessage("Try again"),
         "unfavourite_movies_failed":
             MessageLookupByLibrary.simpleMessage("Unfavourite movies failed"),
         "unknown_error_occurred":
             MessageLookupByLibrary.simpleMessage("Unknown error occurred"),
-        "unknown_genre": MessageLookupByLibrary.simpleMessage("Unknown")
+        "unknown_genre": MessageLookupByLibrary.simpleMessage("Unknown"),
+        "version": MessageLookupByLibrary.simpleMessage("Version")
       };
 }

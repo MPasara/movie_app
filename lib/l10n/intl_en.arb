@@ -15,5 +15,15 @@
     "movie_added_to_favourites" : "{movieName} added to favourites",
     "favourite_movies_failed" : "Favourite movies failed",
     "unfavourite_movies_failed" : "Unfavourite movies failed",
-    "load_favourite_movies_failed" : "Load favourite movies failed"
+    "load_favourite_movies_failed" : "Load favourite movies failed",
+    "light" : "Light",
+    "dark" : "Dark",
+    "system" : "System",
+    "appearance" : "Appearance",
+    "language" : "Language",
+    "english" : "English",
+    "croatian" : "Croatian",
+    "spanish" : "Spanish",
+    "general" : "General",
+    "version" : "Version"
 }

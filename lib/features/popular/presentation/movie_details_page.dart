@@ -87,7 +87,8 @@ class _MovieDetailsPageState extends ConsumerState<MovieDetailsPage> {
                               HapticFeedback.mediumImpact();
                               ref
                                   .read(
-                                      favouriteMoviesNotifierProvider.notifier,)
+                                    favouriteMoviesNotifierProvider.notifier,
+                                  )
                                   .toggleFavourite(widget.movie);
                             },
                             icon: Icon(
