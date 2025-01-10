@@ -7,10 +7,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_loggy/flutter_loggy.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
+import 'package:movie_app/common/data/providers.dart';
 import 'package:movie_app/common/domain/notifiers/locale_notifier.dart';
 import 'package:movie_app/common/domain/notifiers/theme_notifier.dart';
 import 'package:movie_app/common/utils/constants/locale_constants.dart';
-import 'package:movie_app/features/favourite/data/repositories/database_service_impl.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'common/domain/providers/base_router_provider.dart';

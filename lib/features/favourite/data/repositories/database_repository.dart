@@ -1,8 +1,8 @@
 import 'package:either_dart/either.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:movie_app/common/data/providers.dart';
 import 'package:movie_app/common/data/two_way_entity_mapper.dart';
 import 'package:movie_app/features/favourite/data/repositories/database_service.dart';
-import 'package:movie_app/features/favourite/data/repositories/database_service_impl.dart';
 import 'package:movie_app/features/popular/data/mappers/movie_entity_mapper.dart';
 import 'package:movie_app/features/popular/data/models/movie_response.dart';
 import 'package:movie_app/features/popular/domain/entities/movie.dart';
