@@ -3,6 +3,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_loggy_dio/flutter_loggy_dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:movie_app/common/data/package_info_service.dart';
 import 'package:movie_app/common/utils/header_interceptor.dart';
 
 import '../../main/app_environment.dart';
@@ -25,4 +26,8 @@ final dioProvider = Provider.family<Dio, String>(
         HeaderInterceptor(),
       ],
     ),
+);
+
+final packageInfoServiceProvider = Provider<PackageInfoService>(
+  (ref) => PackageInfoService(),
 );

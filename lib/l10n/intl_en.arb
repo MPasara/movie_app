@@ -25,5 +25,6 @@
     "croatian" : "Croatian",
     "spanish" : "Spanish",
     "general" : "General",
-    "version" : "Version"
+    "version" : "Version",
+    "fetch_app_version_failed" : "Fetch app version failed"
 }

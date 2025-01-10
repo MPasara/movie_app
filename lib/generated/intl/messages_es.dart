@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "favourite_movies_failed": MessageLookupByLibrary.simpleMessage(
             "Error al cargar películas favoritas"),
         "favourites": MessageLookupByLibrary.simpleMessage("Favoritos"),
+        "fetch_app_version_failed": MessageLookupByLibrary.simpleMessage(
+            "Error al recuperar la versión de la aplicación"),
         "fetch_genres_failed":
             MessageLookupByLibrary.simpleMessage("Error al obtener géneros"),
         "fetch_movies_failed":

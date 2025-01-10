@@ -25,5 +25,6 @@
     "croatian" : "Croata",
     "spanish" : "Espanol",
     "general" : "General",
-    "version" : "Versión"
+    "version" : "Versión",
+    "fetch_app_version_failed" : "Error al recuperar la versión de la aplicación"
 }

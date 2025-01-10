@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "favourite_movies_failed": MessageLookupByLibrary.simpleMessage(
             "Filmovi omiljeni nisu uspjeli"),
         "favourites": MessageLookupByLibrary.simpleMessage("Favoriti"),
+        "fetch_app_version_failed": MessageLookupByLibrary.simpleMessage(
+            "Dohvaćanje verzije aplikacije nije uspjelo"),
         "fetch_genres_failed": MessageLookupByLibrary.simpleMessage(
             "Preuzimanje žanrova nije uspjelo"),
         "fetch_movies_failed": MessageLookupByLibrary.simpleMessage(

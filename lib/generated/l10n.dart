@@ -309,6 +309,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Fetch app version failed`
+  String get fetch_app_version_failed {
+    return Intl.message(
+      'Fetch app version failed',
+      name: 'fetch_app_version_failed',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

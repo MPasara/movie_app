@@ -25,5 +25,6 @@
   "croatian": "Hrvatski",
   "spanish" : "Španjolski",
   "general": "Općenito",
-  "version" : "Verzija"
+  "version" : "Verzija",
+  "fetch_app_version_failed" : "Dohvaćanje verzije aplikacije nije uspjelo"
 }
