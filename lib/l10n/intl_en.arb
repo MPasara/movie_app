@@ -15,5 +15,19 @@
     "movie_added_to_favourites" : "{movieName} added to favourites",
     "favourite_movies_failed" : "Favourite movies failed",
     "unfavourite_movies_failed" : "Unfavourite movies failed",
-    "load_favourite_movies_failed" : "Load favourite movies failed"
+    "load_favourite_movies_failed" : "Load favourite movies failed",
+    "light" : "Light",
+    "dark" : "Dark",
+    "system" : "System",
+    "appearance" : "Appearance",
+    "language" : "Language",
+    "english" : "English",
+    "croatian" : "Croatian",
+    "spanish" : "Spanish",
+    "general" : "General",
+    "version" : "Version",
+    "fetch_app_version_failed" : "Fetch app version failed",
+    "fetch_language_failed" : "Fetch language failed",
+    "set_language_failed" : "Set language failed",
+    "set_theme_failed" : "Set theme mode failed"
 }
