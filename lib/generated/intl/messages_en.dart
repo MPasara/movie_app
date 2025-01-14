@@ -38,6 +38,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Fetch app version failed"),
         "fetch_genres_failed":
             MessageLookupByLibrary.simpleMessage("Fetch genres failed"),
+        "fetch_language_failed":
+            MessageLookupByLibrary.simpleMessage("Fetch language failed"),
         "fetch_movies_failed":
             MessageLookupByLibrary.simpleMessage("Fetch movies failed"),
         "general": MessageLookupByLibrary.simpleMessage("General"),
@@ -53,6 +55,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "permission_denied": MessageLookupByLibrary.simpleMessage(
             "Permission has been denied, please enable it in device settings"),
         "popular": MessageLookupByLibrary.simpleMessage("Popular"),
+        "set_language_failed":
+            MessageLookupByLibrary.simpleMessage("Set language failed"),
+        "set_theme_failed":
+            MessageLookupByLibrary.simpleMessage("Set theme mode failed"),
         "spanish": MessageLookupByLibrary.simpleMessage("Spanish"),
         "system": MessageLookupByLibrary.simpleMessage("System"),
         "try_again": MessageLookupByLibrary.simpleMessage("Try again"),

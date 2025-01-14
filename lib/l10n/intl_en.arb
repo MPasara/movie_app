@@ -26,5 +26,8 @@
     "spanish" : "Spanish",
     "general" : "General",
     "version" : "Version",
-    "fetch_app_version_failed" : "Fetch app version failed"
+    "fetch_app_version_failed" : "Fetch app version failed",
+    "fetch_language_failed" : "Fetch language failed",
+    "set_language_failed" : "Set language failed",
+    "set_theme_failed" : "Set theme mode failed"
 }

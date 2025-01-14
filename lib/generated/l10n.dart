@@ -319,6 +319,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Fetch language failed`
+  String get fetch_language_failed {
+    return Intl.message(
+      'Fetch language failed',
+      name: 'fetch_language_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set language failed`
+  String get set_language_failed {
+    return Intl.message(
+      'Set language failed',
+      name: 'set_language_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set theme mode failed`
+  String get set_theme_failed {
+    return Intl.message(
+      'Set theme mode failed',
+      name: 'set_theme_failed',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

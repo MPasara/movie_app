@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:movie_app/common/domain/notifiers/theme_notifier.dart';
 import 'package:movie_app/common/presentation/build_context_extensions.dart';
 import 'package:movie_app/common/presentation/spacing.dart';
@@ -7,18 +8,14 @@ import 'package:movie_app/common/presentation/widgets/drawer_section_header.dart
 import 'package:movie_app/common/presentation/widgets/theme_switch_button.dart';
 import 'package:movie_app/generated/l10n.dart';
 
-class ThemeSwitcherRow extends StatelessWidget {
+class ThemeSwitcherRow extends ConsumerWidget {
   const ThemeSwitcherRow({
     super.key,
-    required this.selectedTheme,
-    required this.themeNotifier,
   });
 
-  final ThemeMode selectedTheme;
-  final ThemeNotifier themeNotifier;
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedTheme = ref.watch(themeNotifierProvider);
     return Column(
       children: [
         DrawerSectionHeader(header: S.of(context).appearance),
@@ -32,7 +29,9 @@ class ThemeSwitcherRow extends StatelessWidget {
                   : context.appColors.secondary,
               onTap: () {
                 HapticFeedback.mediumImpact();
-                themeNotifier.setThemeMode(ThemeMode.light);
+                ref
+                    .read(themeNotifierProvider.notifier)
+                    .setThemeMode(ThemeMode.light);
               },
             ),
             spacing14,
@@ -42,7 +41,9 @@ class ThemeSwitcherRow extends StatelessWidget {
                   : context.appColors.secondary,
               onTap: () {
                 HapticFeedback.mediumImpact();
-                themeNotifier.setThemeMode(ThemeMode.system);
+                ref
+                    .read(themeNotifierProvider.notifier)
+                    .setThemeMode(ThemeMode.system);
               },
             ),
             spacing14,
@@ -52,7 +53,9 @@ class ThemeSwitcherRow extends StatelessWidget {
                   : context.appColors.secondary,
               onTap: () {
                 HapticFeedback.mediumImpact();
-                themeNotifier.setThemeMode(ThemeMode.dark);
+                ref
+                    .read(themeNotifierProvider.notifier)
+                    .setThemeMode(ThemeMode.dark);
               },
             ),
           ],

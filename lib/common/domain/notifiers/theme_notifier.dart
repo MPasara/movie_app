@@ -1,45 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:movie_app/common/data/repositories/theme_repository.dart';
+import 'package:movie_app/common/domain/providers/failure_provider.dart';
 
 final themeNotifierProvider = NotifierProvider<ThemeNotifier, ThemeMode>(
   () => ThemeNotifier(),
+  name: 'Theme Notifier Provider',
 );
 
 class ThemeNotifier extends Notifier<ThemeMode> {
-  static const String _themeKey = 'theme_mode';
+  late ThemeRepository _themeRepository;
 
   @override
   ThemeMode build() {
+    _themeRepository = ref.watch(themeRepositoryProvider);
     _initializeTheme();
-    return state = ThemeMode.system;
+    return ThemeMode.system;
   }
 
   Future<void> _initializeTheme() async {
-    final savedTheme = await _loadThemeMode();
-    if (savedTheme != state) state = savedTheme;
-  }
-
-  Future<ThemeMode> _loadThemeMode() async {
-    final prefs = await SharedPreferences.getInstance();
-    final savedValue = prefs.getString(_themeKey);
-
-    switch (savedValue) {
-      case 'light':
-        return ThemeMode.light;
-      case 'dark':
-        return ThemeMode.dark;
-      default:
-        return ThemeMode.system;
-    }
+    final eitherFailureOrThemeMode = await _themeRepository.getThemeMode();
+    eitherFailureOrThemeMode.fold(
+      (failure) => ref.read(failureProvider.notifier).state = failure,
+      (themeMode) {
+        state = themeMode;
+      },
+    );
   }
 
   Future<void> setThemeMode(ThemeMode themeMode) async {
     state = themeMode;
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(
-      _themeKey,
-      themeMode.toString().split('.').last,
-    );
+    await _themeRepository.setThemeMode(themeMode);
   }
 }

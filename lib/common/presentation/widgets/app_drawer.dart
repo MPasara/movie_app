@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:movie_app/common/domain/notifiers/theme_notifier.dart';
 import 'package:movie_app/common/presentation/build_context_extensions.dart';
 import 'package:movie_app/common/presentation/spacing.dart';
 import 'package:movie_app/common/presentation/widgets/app_version_label.dart';
@@ -15,8 +14,6 @@ class AppDrawer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeNotifier = ref.read(themeNotifierProvider.notifier);
-    final selectedTheme = ref.watch(themeNotifierProvider);
     return BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 2.5, sigmaY: 2.5),
       child: Drawer(
@@ -38,10 +35,7 @@ class AppDrawer extends ConsumerWidget {
                     // LanguageSwitcherWidget(),
                     CustomLanguageSwitcher(),
                     spacing22,
-                    ThemeSwitcherRow(
-                      selectedTheme: selectedTheme,
-                      themeNotifier: themeNotifier,
-                    ),
+                    ThemeSwitcherRow(),
                     Spacer(flex: 2),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 12),
