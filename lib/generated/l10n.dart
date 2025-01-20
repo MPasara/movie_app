@@ -209,6 +209,146 @@ class S {
       args: [],
     );
   }
+
+  /// `Light`
+  String get light {
+    return Intl.message(
+      'Light',
+      name: 'light',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dark`
+  String get dark {
+    return Intl.message(
+      'Dark',
+      name: 'dark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `System`
+  String get system {
+    return Intl.message(
+      'System',
+      name: 'system',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Appearance`
+  String get appearance {
+    return Intl.message(
+      'Appearance',
+      name: 'appearance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message(
+      'Language',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get english {
+    return Intl.message(
+      'English',
+      name: 'english',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Croatian`
+  String get croatian {
+    return Intl.message(
+      'Croatian',
+      name: 'croatian',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Spanish`
+  String get spanish {
+    return Intl.message(
+      'Spanish',
+      name: 'spanish',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `General`
+  String get general {
+    return Intl.message(
+      'General',
+      name: 'general',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Version`
+  String get version {
+    return Intl.message(
+      'Version',
+      name: 'version',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fetch app version failed`
+  String get fetch_app_version_failed {
+    return Intl.message(
+      'Fetch app version failed',
+      name: 'fetch_app_version_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fetch language failed`
+  String get fetch_language_failed {
+    return Intl.message(
+      'Fetch language failed',
+      name: 'fetch_language_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set language failed`
+  String get set_language_failed {
+    return Intl.message(
+      'Set language failed',
+      name: 'set_language_failed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set theme mode failed`
+  String get set_theme_failed {
+    return Intl.message(
+      'Set theme mode failed',
+      name: 'set_theme_failed',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -217,6 +357,8 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'es'),
+      Locale.fromSubtags(languageCode: 'hr'),
     ];
   }
 

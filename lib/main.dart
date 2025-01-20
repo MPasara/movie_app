@@ -7,7 +7,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_loggy/flutter_loggy.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
-import 'package:movie_app/features/favourite/data/repositories/database_service_impl.dart';
+import 'package:movie_app/common/data/providers.dart';
+import 'package:movie_app/common/domain/notifiers/locale_notifier.dart';
+import 'package:movie_app/common/domain/notifiers/theme_notifier.dart';
+import 'package:movie_app/common/utils/constants/locale_constants.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'common/domain/providers/base_router_provider.dart';
@@ -69,21 +72,38 @@ class AppStartupWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeNotifierProvider);
     final appStartupState = ref.watch(_appStartupProvider);
+    final locale = ref.watch(localeNotifierProvider);
     return appStartupState.when(
       loading: () => const SizedBox(),
       error: (error, stackTrace) => MaterialApp(
-        home: Scaffold(body: Center(child: Text(error.toString()))),
+        home: PopScope(
+          canPop: false,
+          child: Scaffold(
+            body: Center(
+              child: Text(
+                error.toString(),
+              ),
+            ),
+          ),
+        ),
       ),
       data: (_) {
         final baseRouter = ref.watch(baseRouterProvider);
         return MaterialApp.router(
+          locale: locale,
+          supportedLocales: const [
+            Locale(LocaleConstants.eng),
+            Locale(LocaleConstants.cro),
+            Locale(LocaleConstants.spanish),
+          ],
           debugShowCheckedModeBanner:
               EnvInfo.environment != AppEnvironment.PROD,
           title: EnvInfo.appTitle,
           theme: primaryTheme,
           darkTheme: secondaryTheme,
-          themeMode: ThemeMode.system,
+          themeMode: themeMode,
           localizationsDelegates: const [
             S.delegate,
             ...GlobalMaterialLocalizations.delegates,

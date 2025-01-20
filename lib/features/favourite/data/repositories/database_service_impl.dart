@@ -1,15 +1,9 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:movie_app/common/utils/constants/sembast_constants.dart';
 import 'package:movie_app/features/favourite/data/repositories/database_service.dart';
 import 'package:movie_app/features/popular/data/models/movie_response.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast_io.dart';
-
-final databaseServiceProvider = Provider<DatabaseService>(
-  (ref) => DatabaseServiceImpl(),
-  name: 'Database service provider',
-);
 
 class DatabaseServiceImpl implements DatabaseService {
   final _storeRef =
