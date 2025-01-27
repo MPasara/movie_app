@@ -27,7 +27,7 @@ void main() {
           .thenAnswer((_) async => expectedAppInfo);
 
       // Act
-      final result = await repository.getVersionNumbebr();
+      final result = await repository.getVersionNumber();
 
       // Assert
       expect(result.isRight, true);
@@ -42,7 +42,7 @@ void main() {
           .thenThrow(testException);
 
       // Act
-      final result = await repository.getVersionNumbebr();
+      final result = await repository.getVersionNumber();
 
       // Assert
       expect(result.isLeft, true);
