@@ -19,13 +19,10 @@ abstract class ApiClient {
 
   @GET(ApiPathConstants.moviePopular)
   Future<MovieResponseWrapper> getMovies(
-    @Header('Authorization') String bearerToken,
     @Query('language') String language,
     @Query('page') int page,
   );
 
   @GET(ApiPathConstants.genres)
-  Future<GenreResponseWrapper> getAllGenres(
-    @Header('Authorization') String bearerToken,
-  );
+  Future<GenreResponseWrapper> getAllGenres();
 }
