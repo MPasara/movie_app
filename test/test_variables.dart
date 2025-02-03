@@ -9,6 +9,9 @@ import 'package:movie_app/features/favourite/data/repositories/database_service.
 import 'package:movie_app/features/popular/data/models/movie_response.dart';
 import 'package:movie_app/features/popular/data/repositories/genre_repository.dart';
 import 'package:movie_app/features/popular/domain/entities/movie.dart';
+import 'package:movie_app/features/popular/domain/entities/movie_wrapper.dart';
+import 'package:movie_app/generated/l10n.dart';
+import 'package:q_architecture/q_architecture.dart';
 
 class MockDatabaseService extends Mock implements DatabaseService {}
 
@@ -91,4 +94,20 @@ final testMovieResponseWrapper = MovieResponseWrapper(
 
 final testGenreResponseWrapper = GenreResponseWrapper(
   genres: kTestGenres,
+);
+
+final testFailure = Failure(title: S.current.unknown_error_occurred);
+
+final testMovieWrapper = MovieWrapper(
+  currentPage: 1,
+  totalPages: 2,
+  movies: [testMovie.copyWith(id: 1)],
+  isLoading: false,
+);
+
+final testMovieWrapperPage2 = MovieWrapper(
+  currentPage: 2,
+  totalPages: 3,
+  movies: [testMovie.copyWith(id: 2), testMovie.copyWith(id: 3)],
+  isLoading: false,
 );
