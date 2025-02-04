@@ -17,8 +17,8 @@ class AppInfoNotifier extends BaseNotifier<AppInfo> {
   }
 
   Future getAppInfo() => execute(
-        _appInfoRepository.getVersionNumbebr(),
-        globalFailure: true,
+        _appInfoRepository.getVersionNumber(),
+        globalFailure: false,
         withLoadingState: true,
       );
 }

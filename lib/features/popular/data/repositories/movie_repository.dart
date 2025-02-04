@@ -45,36 +45,31 @@ class MovieRepositoryImpl implements MovieRepository {
 
     try {
       final response = await _apiClient.getMovies(
-        kBearerToken,
         kApiLanguage,
         page,
       );
 
-      final eitherFailureOrGenres = await _genreRepository.getAllGenres();
-      //genre try-catch
-      try {
-        eitherFailureOrGenres.fold(
-          (failure) => Failure(title: failure.title, error: failure.error),
-          (response) {
-            if (genreMap.state.isEmpty) {
-              genreMap.state = {
-                for (final genre in response.genres) genre.id: genre.name,
-              };
-            }
+      if (genreMap.state.isEmpty) {
+        final eitherFailureOrGenres = await _genreRepository.getAllGenres();
+
+        return eitherFailureOrGenres.fold(
+          (failure) => Left(
+            Failure(
+              title: S.current.fetch_genres_failed,
+              error: failure.error,
+            ),
+          ),
+          (genreResponse) {
+            genreMap.state = {
+              for (final genre in genreResponse.genres) genre.id: genre.name,
+            };
+            final movieWrapperEntity = _movieWrapperEntityMapper(response);
+            return Right(movieWrapperEntity);
           },
         );
-      } catch (e, st) {
-        return Left(
-          Failure(
-            title: S.current.fetch_genres_failed,
-            error: e,
-            stackTrace: st,
-          ),
-        );
       }
-      //
-      final movieWrapperEntity = _movieWrapperEntityMapper(response);
 
+      final movieWrapperEntity = _movieWrapperEntityMapper(response);
       return Right(movieWrapperEntity);
     } catch (e, st) {
       return Left(

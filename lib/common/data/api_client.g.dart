@@ -56,7 +56,6 @@ class _ApiClient implements ApiClient {
 
   @override
   Future<MovieResponseWrapper> getMovies(
-    String bearerToken,
     String language,
     int page,
   ) async {
@@ -65,8 +64,7 @@ class _ApiClient implements ApiClient {
       r'language': language,
       r'page': page,
     };
-    final _headers = <String, dynamic>{r'Authorization': bearerToken};
-    _headers.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<MovieResponseWrapper>(Options(
       method: 'GET',
@@ -96,11 +94,10 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<GenreResponseWrapper> getAllGenres(String bearerToken) async {
+  Future<GenreResponseWrapper> getAllGenres() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{r'Authorization': bearerToken};
-    _headers.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<GenreResponseWrapper>(Options(
       method: 'GET',

@@ -3,7 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:movie_app/common/data/api_client.dart';
 import 'package:movie_app/common/data/genre_response.dart';
 import 'package:movie_app/common/data/providers.dart';
-import 'package:movie_app/common/utils/constants/constants.dart';
 import 'package:movie_app/generated/l10n.dart';
 import 'package:q_architecture/q_architecture.dart';
 
@@ -25,7 +24,7 @@ class GenreRepositoryImpl implements GenreRepository {
   @override
   EitherFailureOr<GenreResponseWrapper> getAllGenres() async {
     try {
-      final response = await _apiClient.getAllGenres(kBearerToken);
+      final response = await _apiClient.getAllGenres();
       return Right(response);
     } catch (e, st) {
       return Left(
