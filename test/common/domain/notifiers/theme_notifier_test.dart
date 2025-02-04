@@ -10,7 +10,6 @@ import 'package:movie_app/generated/l10n.dart';
 
 import '../../../test_variables.dart';
 
-class MockThemeRepository extends Mock implements ThemeRepository {}
 
 void main() {
   setUpAll(() {
@@ -132,7 +131,7 @@ void main() {
             .setThemeMode(ThemeMode.light);
 
         expect(states, [ThemeMode.light, ThemeMode.dark]);
-        //expect(container.read(failureProvider), testFailure);
+
         verify(() => mockRepository.setThemeMode(ThemeMode.light)).called(1);
       });
     });

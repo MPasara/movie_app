@@ -4,10 +4,14 @@ import 'package:movie_app/common/data/api_client.dart';
 import 'package:movie_app/common/data/genre_response.dart';
 import 'package:movie_app/common/data/local_storage_service.dart';
 import 'package:movie_app/common/data/package_info_service.dart';
+import 'package:movie_app/common/data/repositories/app_info_repository.dart';
+import 'package:movie_app/common/data/repositories/locale_repository.dart';
+import 'package:movie_app/common/data/repositories/theme_repository.dart';
 import 'package:movie_app/common/domain/entities/app_info.dart';
 import 'package:movie_app/features/favourite/data/repositories/database_service.dart';
 import 'package:movie_app/features/popular/data/models/movie_response.dart';
 import 'package:movie_app/features/popular/data/repositories/genre_repository.dart';
+import 'package:movie_app/features/popular/data/repositories/movie_repository.dart';
 import 'package:movie_app/features/popular/domain/entities/movie.dart';
 import 'package:movie_app/features/popular/domain/entities/movie_wrapper.dart';
 import 'package:movie_app/generated/l10n.dart';
@@ -111,3 +115,11 @@ final testMovieWrapperPage2 = MovieWrapper(
   movies: [testMovie.copyWith(id: 2), testMovie.copyWith(id: 3)],
   isLoading: false,
 );
+
+class MockMovieRepository extends Mock implements MovieRepository {}
+
+class MockAppInfoRepository extends Mock implements AppInfoRepository {}
+
+class MockLocaleRepository extends Mock implements LocaleRepository {}
+
+class MockThemeRepository extends Mock implements ThemeRepository {}

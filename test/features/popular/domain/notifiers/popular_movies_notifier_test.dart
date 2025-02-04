@@ -8,13 +8,8 @@ import 'package:movie_app/features/popular/domain/entities/movie_wrapper.dart';
 import 'package:movie_app/features/popular/domain/notifiers/popular_movies_notifier.dart';
 import 'package:movie_app/generated/l10n.dart';
 import 'package:q_architecture/base_notifier.dart';
-import 'package:q_architecture/q_architecture.dart';
 
 import '../../../../test_variables.dart';
-
-class MockMovieRepository extends Mock implements MovieRepository {}
-
-final testFailure = Failure(title: S.current.unknown_error_occurred);
 
 void main() {
   late MockMovieRepository mockRepository;

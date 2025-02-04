@@ -11,7 +11,7 @@ import 'package:movie_app/generated/l10n.dart';
 
 import '../../../test_variables.dart';
 
-class MockLocaleRepository extends Mock implements LocaleRepository {}
+
 
 void main() {
   setUpAll(() {

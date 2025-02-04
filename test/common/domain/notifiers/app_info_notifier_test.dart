@@ -12,9 +12,6 @@ import 'package:q_architecture/q_architecture.dart';
 
 import '../../../test_variables.dart';
 
-class MockAppInfoRepository extends Mock implements AppInfoRepository {}
-
-
 void main() {
   late MockAppInfoRepository mockRepository;
   late ProviderContainer container;
