@@ -30,6 +30,10 @@ class ThemeNotifier extends Notifier<ThemeMode> {
 
   Future<void> setThemeMode(ThemeMode themeMode) async {
     state = themeMode;
-    await _themeRepository.setThemeMode(themeMode);
+    final result = await _themeRepository.setThemeMode(themeMode);
+    result.fold(
+      (failure) => ref.read(failureProvider.notifier).state = failure,
+      (_) => null,
+    );
   }
 }

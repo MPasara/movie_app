@@ -14,12 +14,15 @@ final popularMoviesNotifierProvider =
 
 class PopularMoviesNotifier extends Notifier<BaseState<MovieWrapper>> {
   late MovieRepository _movieRepository;
+  bool autoInitialize = true;
 
   @override
   BaseState<MovieWrapper> build() {
     _movieRepository = ref.watch(movieRepositoryProvider);
 
-    getPopularMovies(1);
+    if (autoInitialize) {
+      getPopularMovies(1);
+    }
 
     return const BaseState.initial();
   }

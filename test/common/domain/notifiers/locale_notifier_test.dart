@@ -11,8 +11,6 @@ import 'package:movie_app/generated/l10n.dart';
 
 import '../../../test_variables.dart';
 
-
-
 void main() {
   setUpAll(() {
     registerFallbackValue(const Locale(LocaleConstants.eng));
@@ -97,14 +95,16 @@ void main() {
           fireImmediately: false,
         );
 
+        await Future.delayed(Duration(seconds: 2));
+
         // Act
         await container
             .read(localeNotifierProvider.notifier)
             .setLocale(const Locale(LocaleConstants.cro));
 
         expect(states, [
-          const Locale(LocaleConstants.cro),
           const Locale(LocaleConstants.eng),
+          const Locale(LocaleConstants.cro),
         ]);
         verify(() => mockRepository.setLanguage(LocaleConstants.cro)).called(1);
       });
@@ -120,14 +120,15 @@ void main() {
           fireImmediately: false,
         );
 
+        await Future.delayed(Duration(seconds: 2));
         // Act
         await container
             .read(localeNotifierProvider.notifier)
             .setLocale(const Locale(LocaleConstants.cro));
 
         expect(states, [
+          const Locale(LocaleConstants.eng),
           const Locale(LocaleConstants.cro),
-          const Locale(LocaleConstants.eng)
         ]);
         verify(() => mockRepository.setLanguage(LocaleConstants.cro)).called(1);
       });

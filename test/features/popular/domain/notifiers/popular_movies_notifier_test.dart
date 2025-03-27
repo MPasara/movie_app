@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:movie_app/common/domain/providers/failure_provider.dart';
 import 'package:movie_app/features/popular/data/repositories/movie_repository.dart';
 import 'package:movie_app/features/popular/domain/entities/movie_wrapper.dart';
 import 'package:movie_app/features/popular/domain/notifiers/popular_movies_notifier.dart';
 import 'package:movie_app/generated/l10n.dart';
 import 'package:q_architecture/base_notifier.dart';
+import 'package:q_architecture/q_architecture.dart';
 
 import '../../../../test_variables.dart';
 
@@ -112,6 +114,63 @@ void main() {
             BaseData<MovieWrapper>(testMovieWrapper),
           ],
         );
+        verify(() => mockRepository.getMovies(1)).called(1);
+      });
+
+      test('should show loading state and update failure provider when fails',
+          () async {
+        final customNotifier = PopularMoviesNotifier()..autoInitialize = false;
+
+        container = ProviderContainer(
+          overrides: [
+            movieRepositoryProvider.overrideWithValue(mockRepository),
+            popularMoviesNotifierProvider.overrideWith(() => customNotifier),
+          ],
+        );
+
+        when(() => mockRepository.getMovies(any())).thenAnswer(
+          (_) async => Left(Failure(title: S.current.fetch_movies_failed)),
+        );
+
+        final states = <BaseState<MovieWrapper>>[];
+        container.listen(
+          popularMoviesNotifierProvider,
+          (_, state) => states.add(state),
+          fireImmediately: false,
+        );
+
+        final failures = <Failure?>[];
+        container.listen(
+          failureProvider,
+          (_, failure) => failures.add(failure),
+          fireImmediately: false,
+        );
+
+        // Act
+        await container
+            .read(popularMoviesNotifierProvider.notifier)
+            .getPopularMovies(1);
+
+        await Future.delayed(const Duration(milliseconds: 150));
+
+        // Assert
+        expect(
+          states,
+          [
+            const BaseLoading<MovieWrapper>(),
+            BaseError<MovieWrapper>(
+              Failure(title: S.current.fetch_movies_failed),
+            ),
+          ],
+        );
+
+        expect(
+          failures,
+          isNotEmpty,
+          reason: 'No failures were added to the list',
+        );
+        expect(failures.last, Failure(title: S.current.fetch_movies_failed));
+
         verify(() => mockRepository.getMovies(1)).called(1);
       });
     });
