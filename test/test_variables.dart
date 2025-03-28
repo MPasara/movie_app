@@ -103,6 +103,7 @@ final testGenreResponseWrapper = GenreResponseWrapper(
 );
 
 final testFailure = Failure(title: S.current.unknown_error_occurred);
+final testMovieFailure = Failure(title: S.current.fetch_movies_failed);
 
 final testMovieWrapper = MovieWrapper(
   currentPage: 1,

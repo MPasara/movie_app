@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:movie_app/common/domain/providers/failure_provider.dart';
 import 'package:movie_app/features/popular/data/repositories/movie_repository.dart';
 import 'package:movie_app/features/popular/domain/entities/movie_wrapper.dart';
 import 'package:movie_app/features/popular/domain/notifiers/popular_movies_notifier.dart';
@@ -151,11 +152,11 @@ void main() {
           [
             const BaseLoading<MovieWrapper>(),
             BaseError<MovieWrapper>(
-              Failure(title: S.current.fetch_movies_failed),
+              testMovieFailure,
             ),
           ],
         );
-
+        expect(container.read(failureProvider), testMovieFailure);
         verify(() => mockRepository.getMovies(1)).called(1);
       });
     });

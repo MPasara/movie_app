@@ -96,7 +96,7 @@ void main() {
           (_, state) => states.add(state),
           fireImmediately: false,
         );
-        await Future.delayed(Duration(seconds: 2));
+        await Future.delayed(Duration.zero);
         // Act
         await container
             .read(themeNotifierProvider.notifier)
@@ -123,14 +123,14 @@ void main() {
           fireImmediately: false,
         );
 
-        await Future.delayed(Duration(seconds: 2));
+        await Future.delayed(Duration.zero);
         // Act
         await container
             .read(themeNotifierProvider.notifier)
             .setThemeMode(ThemeMode.light);
 
         expect(states, [ThemeMode.dark, ThemeMode.light]);
-
+        expect(container.read(failureProvider), testFailure);
         verify(() => mockRepository.setThemeMode(ThemeMode.light)).called(1);
       });
     });
