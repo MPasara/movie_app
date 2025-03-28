@@ -95,8 +95,7 @@ void main() {
           fireImmediately: false,
         );
 
-        await Future.delayed(Duration(seconds: 2));
-
+        await Future.delayed(Duration.zero);
         // Act
         await container
             .read(localeNotifierProvider.notifier)
@@ -120,7 +119,7 @@ void main() {
           fireImmediately: false,
         );
 
-        await Future.delayed(Duration(seconds: 2));
+        await Future.delayed(Duration.zero);
         // Act
         await container
             .read(localeNotifierProvider.notifier)

@@ -49,7 +49,6 @@ void main() {
       when(() => mockRef.read(allGenresProvider.notifier))
           .thenReturn(mockGenresProvider);
       when(() => mockGenresProvider.state).thenReturn({});
-      when(() => mockGenresProvider.state = any()).thenReturn({});
 
       when(
         () => mockApiClient.getMovies(

@@ -25,16 +25,16 @@ void main() {
     test('should return Right with language code when storage returns value',
         () async {
       // Arrange
-      const expectedLanguageCode = 'en';
+
       when(() => mockLocalStorageService.getLanguageCode())
-          .thenAnswer((_) async => expectedLanguageCode);
+          .thenAnswer((_) async => languageCode);
 
       // Act
       final result = await repository.getLanguage();
 
       // Assert
       expect(result.isRight, true);
-      expect(result.right, expectedLanguageCode);
+      expect(result.right, languageCode);
       verify(() => mockLocalStorageService.getLanguageCode()).called(1);
     });
 
@@ -71,7 +71,7 @@ void main() {
   group('setLanguage', () {
     test('should return Right when setting language is successful', () async {
       // Arrange
-      const languageCode = 'en';
+
       when(() => mockLocalStorageService.setLanguageCode(any()))
           .thenAnswer((_) async {});
 
@@ -87,7 +87,7 @@ void main() {
     test('should return Left with failure when setting language fails',
         () async {
       // Arrange
-      const languageCode = 'en';
+
       when(() => mockLocalStorageService.setLanguageCode(any()))
           .thenThrow(testException);
 

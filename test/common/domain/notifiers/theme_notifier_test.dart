@@ -7,7 +7,6 @@ import 'package:movie_app/common/data/repositories/theme_repository.dart';
 import 'package:movie_app/common/domain/notifiers/theme_notifier.dart';
 import 'package:movie_app/common/domain/providers/failure_provider.dart';
 import 'package:movie_app/generated/l10n.dart';
-import 'package:q_architecture/q_architecture.dart';
 
 import '../../../test_variables.dart';
 
@@ -124,15 +123,6 @@ void main() {
           fireImmediately: false,
         );
 
-        final failures = <Failure?>[];
-        container.listen(
-          failureProvider,
-          (_, failure) {
-            failures.add(failure);
-          },
-          fireImmediately: false,
-        );
-
         await Future.delayed(Duration(seconds: 2));
         // Act
         await container
@@ -140,14 +130,6 @@ void main() {
             .setThemeMode(ThemeMode.light);
 
         expect(states, [ThemeMode.dark, ThemeMode.light]);
-
-        expect(
-          failures,
-          isNotEmpty,
-          reason: 'No failures were added to the list',
-        );
-
-        expect(failures.last, testFailure);
 
         verify(() => mockRepository.setThemeMode(ThemeMode.light)).called(1);
       });

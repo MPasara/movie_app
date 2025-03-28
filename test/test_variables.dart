@@ -88,6 +88,8 @@ final testMovieResponse = MovieResponse(
   posterPath: '/test.jpg',
 );
 
+const languageCode = 'en';
+
 const testPage = 1;
 final testMovieResponseWrapper = MovieResponseWrapper(
   page: 1,

@@ -22,7 +22,6 @@ void main() {
     test('should return Right with AppInfo when service call is successful',
         () async {
       // Arrange
-      expectedAppInfo;
       when(() => mockPackageInfoService.getVersionNumber())
           .thenAnswer((_) async => expectedAppInfo);
 
