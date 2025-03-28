@@ -13,7 +13,7 @@ final appInfoRepositoryProvider = Provider<AppInfoRepository>(
 );
 
 abstract class AppInfoRepository {
-  EitherFailureOr<AppInfo> getVersionNumbebr();
+  EitherFailureOr<AppInfo> getVersionNumber();
 }
 
 class AppInfoRepositoryImpl implements AppInfoRepository {
@@ -22,7 +22,7 @@ class AppInfoRepositoryImpl implements AppInfoRepository {
   AppInfoRepositoryImpl(this._packageInfoService);
 
   @override
-  EitherFailureOr<AppInfo> getVersionNumbebr() async {
+  EitherFailureOr<AppInfo> getVersionNumber() async {
     try {
       final versionNumber = await _packageInfoService.getVersionNumber();
       return Right(versionNumber);

@@ -18,17 +18,20 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(_current != null,
-        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+    assert(
+      _current != null,
+      'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.',
+    );
     return _current!;
   }
 
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
+    final name =
+        (locale.countryCode?.isEmpty ?? false)
+            ? locale.languageCode
+            : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -41,8 +44,10 @@ class S {
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(instance != null,
-        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+    assert(
+      instance != null,
+      'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?',
+    );
     return instance!;
   }
 
@@ -72,32 +77,17 @@ class S {
 
   /// `Popular`
   String get popular {
-    return Intl.message(
-      'Popular',
-      name: 'popular',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Popular', name: 'popular', desc: '', args: []);
   }
 
   /// `Favourites`
   String get favourites {
-    return Intl.message(
-      'Favourites',
-      name: 'favourites',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Favourites', name: 'favourites', desc: '', args: []);
   }
 
   /// `Movies`
   String get movies {
-    return Intl.message(
-      'Movies',
-      name: 'movies',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Movies', name: 'movies', desc: '', args: []);
   }
 
   /// `{rating} / 10 IMDb`
@@ -112,12 +102,7 @@ class S {
 
   /// `Description`
   String get description {
-    return Intl.message(
-      'Description',
-      name: 'description',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Description', name: 'description', desc: '', args: []);
   }
 
   /// `Fetch genres failed`
@@ -142,12 +127,7 @@ class S {
 
   /// `Unknown`
   String get unknown_genre {
-    return Intl.message(
-      'Unknown',
-      name: 'unknown_genre',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Unknown', name: 'unknown_genre', desc: '', args: []);
   }
 
   /// `🍿 No favourites yet?\n Your top picks will appear here soon! 🎥✨`
@@ -162,12 +142,7 @@ class S {
 
   /// `Try again`
   String get try_again {
-    return Intl.message(
-      'Try again',
-      name: 'try_again',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Try again', name: 'try_again', desc: '', args: []);
   }
 
   /// `{movieName} added to favourites`
@@ -212,102 +187,52 @@ class S {
 
   /// `Light`
   String get light {
-    return Intl.message(
-      'Light',
-      name: 'light',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Light', name: 'light', desc: '', args: []);
   }
 
   /// `Dark`
   String get dark {
-    return Intl.message(
-      'Dark',
-      name: 'dark',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Dark', name: 'dark', desc: '', args: []);
   }
 
   /// `System`
   String get system {
-    return Intl.message(
-      'System',
-      name: 'system',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('System', name: 'system', desc: '', args: []);
   }
 
   /// `Appearance`
   String get appearance {
-    return Intl.message(
-      'Appearance',
-      name: 'appearance',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Appearance', name: 'appearance', desc: '', args: []);
   }
 
   /// `Language`
   String get language {
-    return Intl.message(
-      'Language',
-      name: 'language',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Language', name: 'language', desc: '', args: []);
   }
 
   /// `English`
   String get english {
-    return Intl.message(
-      'English',
-      name: 'english',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('English', name: 'english', desc: '', args: []);
   }
 
   /// `Croatian`
   String get croatian {
-    return Intl.message(
-      'Croatian',
-      name: 'croatian',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Croatian', name: 'croatian', desc: '', args: []);
   }
 
   /// `Spanish`
   String get spanish {
-    return Intl.message(
-      'Spanish',
-      name: 'spanish',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Spanish', name: 'spanish', desc: '', args: []);
   }
 
   /// `General`
   String get general {
-    return Intl.message(
-      'General',
-      name: 'general',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('General', name: 'general', desc: '', args: []);
   }
 
   /// `Version`
   String get version {
-    return Intl.message(
-      'Version',
-      name: 'version',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Version', name: 'version', desc: '', args: []);
   }
 
   /// `Fetch app version failed`
