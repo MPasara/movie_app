@@ -5,7 +5,7 @@ A modern Flutter mobile application that provides an immersive movie browsing ex
 ## Table of Contents
 - [Features](#features-)
 - [Screenshots](#screenshots-)
-- [Architecture](#architecture-)
+- [Architecture](#architecture-️)
 - [Getting Started](#getting-started-)
 - [Testing](#testing-)
 - [Features in Detail](#features-in-detail-)
