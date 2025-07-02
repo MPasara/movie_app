@@ -5,12 +5,10 @@ A modern Flutter mobile application that provides an immersive movie browsing ex
 ## Table of Contents
 - [Features](#features-)
 - [Screenshots](#screenshots-)
-- [Architecture](#architecture-)
 - [Getting Started](#getting-started-)
 - [Testing](#testing-)
 - [Features in Detail](#features-in-detail-)
 - [API Integration](#api-integration-)
-- [License](#license-)
 
 ## Features ✨
 
@@ -84,7 +82,6 @@ This app follows clean architecture principles with railway-oriented programming
    - Add your API key to the project configuration
 
 4. **Run the app**
-   ```bash
 ## Testing 🧪
 
 The app includes comprehensive unit tests to ensure code quality and reliability:
@@ -139,9 +136,3 @@ This app integrates with The Movie Database (TMDb) API to fetch:
 - Popular movies list
 - Movie details and metadata
 - High-quality movie posters and backdrops
-
-
-
-## License 📄
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
